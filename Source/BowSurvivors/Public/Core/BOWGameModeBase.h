@@ -14,4 +14,5 @@ class BOWSURVIVORS_API ABOWGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+	ABOWGameModeBase();
 };

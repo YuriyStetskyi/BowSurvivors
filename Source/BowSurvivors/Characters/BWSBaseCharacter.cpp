@@ -2,20 +2,21 @@
 
 
 #include "Characters/BWSBaseCharacter.h"
+#include "Components/CapsuleComponent.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
 ABWSBaseCharacter::ABWSBaseCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
+	InitializeComponents();
 }
 
 // Called when the game starts or when spawned
 void ABWSBaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called every frame
@@ -25,10 +26,17 @@ void ABWSBaseCharacter::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
-void ABWSBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ABWSBaseCharacter::InitializeComponents()
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	/* 
+		Thing to remember:
+		Default Root - CapsuleComponent (default component)
+		SkeletalMesh - you can get via GetMesh(). Is attached to Root by default.
+	*/
 
+	SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
+	SpringArmComponent->SetupAttachment(GetRootComponent());
+
+	CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
+	CameraComponent->SetupAttachment(SpringArmComponent);
 }
-

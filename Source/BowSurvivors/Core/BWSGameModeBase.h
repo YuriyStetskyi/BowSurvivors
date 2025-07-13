@@ -6,12 +6,19 @@
 #include "GameFramework/GameModeBase.h"
 #include "BWSGameModeBase.generated.h"
 
+class ABWSPlayerCharacter;
+
 /**
- * 
+ * Bow Survivors Game Mode class. Used for general setup.
  */
 UCLASS()
 class BOWSURVIVORS_API ABWSGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
 	
+public:
+
+	ABWSGameModeBase(const FObjectInitializer& ObjectInitializer);
+
+	virtual void StartPlay() override;
 };

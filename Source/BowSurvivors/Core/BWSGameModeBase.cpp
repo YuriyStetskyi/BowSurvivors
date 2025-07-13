@@ -2,4 +2,15 @@
 
 
 #include "Core/BWSGameModeBase.h"
+#include "Characters/BWSPlayerCharacter.h"
+#include "Controllers/Player/BWSPlayerController.h"
 
+ABWSGameModeBase::ABWSGameModeBase(const FObjectInitializer& ObjectInitializer)
+{
+
+}
+
+void ABWSGameModeBase::StartPlay()
+{
+	Super::StartPlay();
+}

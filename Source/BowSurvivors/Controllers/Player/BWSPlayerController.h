@@ -47,11 +47,18 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Input")
 	UInputAction* ActionShoot;
 
+	/* Crosshair to be used in game */
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	UUserWidget* CrosshairWidget;
+
 private:
 	/* Setup Default Mapping context for enhanced input */
 	void SetupEnhancedInput();
 
 	/* Setup Input actions. Methods that run from actions should be located in character */
 	void SetupInputActions(APawn* ControlledPawn);
+
+	/* Set up all the cursor settings to work properly in game */
+	void SetupCursor();
 
 };

@@ -17,6 +17,8 @@ void ABWSPlayerController::BeginPlay()
 {
     //SetupEnhancedInput();
     UE_LOG(LogTemp, Warning, TEXT("Pawn class: %s"), *GetPawn()->GetClass()->GetName());
+
+    SetupCursor();
 }
 
 void ABWSPlayerController::OnPossess(APawn* ControlledPawn)
@@ -51,4 +53,15 @@ void ABWSPlayerController::SetupInputActions(APawn* ControlledPawn)
 
     EnhancedInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Move);
     EnhancedInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Shoot);
+}
+
+void ABWSPlayerController::SetupCursor()
+{
+    bShowMouseCursor = true;
+    FInputModeGameAndUI InputMode;
+    InputMode.SetLockMouseToViewportBehavior(EMouseLockMode::LockAlways);
+    InputMode.SetHideCursorDuringCapture(false);
+    SetInputMode(InputMode);
+    SetMouseCursorWidget(EMouseCursor::Type::Crosshairs, CrosshairWidget);
+    CurrentMouseCursor = EMouseCursor::Type::Crosshairs;
 }

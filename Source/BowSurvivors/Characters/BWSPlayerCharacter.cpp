@@ -8,8 +8,8 @@ void ABWSPlayerCharacter::Move(const FInputActionValue& InputActionValue)
 {
 	const FVector2D MovementVector = InputActionValue.Get<FVector2D>();
 
-	AddMovementInput(GetActorForwardVector(), MovementVector.Y);
-	AddMovementInput(GetActorRightVector(), MovementVector.X);
+	AddMovementInput(FVector::ForwardVector, MovementVector.Y);
+	AddMovementInput(FVector::RightVector, MovementVector.X);
 }
 
 void ABWSPlayerCharacter::Shoot(const FInputActionValue& InputActionValue)

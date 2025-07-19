@@ -23,6 +23,7 @@ public:
 	ABWSPlayerController(const FObjectInitializer& ObjectInitializer);
 
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 	virtual void OnPossess(APawn* ControlledPawn) override;
@@ -51,6 +52,10 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	UUserWidget* CrosshairWidget;
 
+	/* Collision channel to hit when projecting ray to find world cursor locaiton */
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TEnumAsByte<ECollisionChannel> CursorProjectionChannel;
+
 private:
 	/* Setup Default Mapping context for enhanced input */
 	void SetupEnhancedInput();
@@ -60,5 +65,21 @@ private:
 
 	/* Set up all the cursor settings to work properly in game */
 	void SetupCursor();
+
+#pragma region Mouse
+
+	/*
+		Finds location projected from cursor onto world terrain.
+		Argument passed is collision channel that should stop projection ray
+	*/
+	FVector FindProjectedMouseLocation(ECollisionChannel ProjectionCollisionChannel);
+
+	/* Rotates character to look at passed world location. Ignores vertical (Z) axis */
+	void LookAtLocation(const FVector& LocationToLookAt);
+
+	/* Current mouse location projected from cursor onto terrain. */
+	FVector CurrentMouseLocation;
+
+#pragma endregion 
 
 };

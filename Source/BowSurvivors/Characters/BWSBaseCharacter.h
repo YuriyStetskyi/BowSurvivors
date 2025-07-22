@@ -12,32 +12,33 @@ class USpringArmComponent;
 UCLASS()
 class BOWSURVIVORS_API ABWSBaseCharacter : public ACharacter
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
-	ABWSBaseCharacter();
+    // Sets default values for this character's properties
+    ABWSBaseCharacter();
 
-	/* Getters */
-	FORCEINLINE USpringArmComponent* const GetSpringArmComponen() { return SpringArmComponent; }
-	FORCEINLINE UCameraComponent* const GetCameraComponent() { return CameraComponent; }
+    /* Getters */
+    FORCEINLINE USpringArmComponent* const GetSpringArmComponen() { return SpringArmComponent; }
+    FORCEINLINE UCameraComponent* const GetCameraComponent() { return CameraComponent; }
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
-	/* Main Character Spring Arm that has camera attached to it */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	USpringArmComponent* SpringArmComponent;
+    /* Main Character Spring Arm that has camera attached to it */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    USpringArmComponent* SpringArmComponent;
 
-	/* Main Character third person Camera */
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	UCameraComponent* CameraComponent;
+    /* Main Character third person Camera */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
+    UCameraComponent* CameraComponent;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+    void InitializeComponents();
 
-	/* Create Components at BeginPlay() */
-	void InitializeComponents();
+public:
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
+
+    /* Create Components at BeginPlay() */
 };

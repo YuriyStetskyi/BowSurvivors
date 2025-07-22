@@ -12,5 +12,5 @@ ABWSGameModeBase::ABWSGameModeBase(const FObjectInitializer& ObjectInitializer)
 
 void ABWSGameModeBase::StartPlay()
 {
-	Super::StartPlay();
+    Super::StartPlay();
 }

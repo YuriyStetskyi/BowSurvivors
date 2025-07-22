@@ -8,24 +8,33 @@
 
 struct FInputActionValue;
 
+class UBWSWeaponComponent;
+
 /**
- * 
+ *
  */
 UCLASS()
 class BOWSURVIVORS_API ABWSPlayerCharacter : public ABWSBaseCharacter
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 public:
-	/* Move action */
-	void Move(const FInputActionValue& InputActionValue);
+    ABWSPlayerCharacter(const FObjectInitializer& ObjectInitializer);
 
-	/* Shoot action */
-	void Shoot(const FInputActionValue& InputActionValue);
+    /* Move action */
+    void Move(const FInputActionValue& InputActionValue);
+
+    /* Shoot action */
+    void Shoot(const FInputActionValue& InputActionValue);
 
 protected:
-	virtual void BeginPlay() override;
+    virtual void BeginPlay() override;
+
+    void InitializeComponents();
+
+    UPROPERTY(EditDefaultsOnly, Category = "Components")
+    UBWSWeaponComponent* WeaponComponent;
 
 private:
-	
+
 };

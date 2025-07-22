@@ -57,14 +57,14 @@ void ABWSPlayerController::SetupEnhancedInput()
 
 void ABWSPlayerController::SetupInputActions(APawn* ControlledPawn)
 {
-    PlayerCharacter = Cast<ABWSPlayerCharacter>(ControlledPawn);
+    ABWSPlayerCharacter* const PlayerCharacter = Cast<ABWSPlayerCharacter>(ControlledPawn);
     if (!PlayerCharacter) return;
 
     EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerCharacter->InputComponent);
     if (!EnhancedInputComponent) return;
 
     EnhancedInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Move);
-    EnhancedInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Shoot);
+    EnhancedInputComponent->BindAction(ActionShoot, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Shoot);
 }
 
 void ABWSPlayerController::SetupCursor()
@@ -109,7 +109,7 @@ void ABWSPlayerController::LookAtLocation(const FVector& LocationToLookAt)
 {
     APawn* const ControlledPawn = GetPawn();
     if (!ControlledPawn) return;
- 
+
     FVector CharacterLocation = ControlledPawn->GetActorLocation();
 
     FVector Start(CharacterLocation.X, CharacterLocation.Y, 0);

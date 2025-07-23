@@ -3,10 +3,14 @@
 
 #include "Characters/BWSPlayerCharacter.h"
 #include "InputActionValue.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "Components/BWSWeaponComponent.h"
 
 ABWSPlayerCharacter::ABWSPlayerCharacter(const FObjectInitializer& ObjectInitializer)
-    : WeaponComponent(nullptr)
+    : SpringArmComponent(nullptr)
+    , CameraComponent(nullptr)
+    , WeaponComponent(nullptr)
 {
     InitializeComponents();
 }
@@ -31,5 +35,17 @@ void ABWSPlayerCharacter::BeginPlay()
 
 void ABWSPlayerCharacter::InitializeComponents()
 {
+    /*
+        Thing to remember:
+        Default Root - CapsuleComponent (default component)
+        SkeletalMesh - you can get via GetMesh(). Is attached to Root by default.
+    */
+
+    SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
+    SpringArmComponent->SetupAttachment(GetRootComponent());
+
+    CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
+    CameraComponent->SetupAttachment(SpringArmComponent);
+
     WeaponComponent = CreateDefaultSubobject<UBWSWeaponComponent>(TEXT("WeaponComponent"));
 }

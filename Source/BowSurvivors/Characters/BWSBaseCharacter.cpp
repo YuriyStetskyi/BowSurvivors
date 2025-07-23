@@ -3,8 +3,6 @@
 
 #include "Characters/BWSBaseCharacter.h"
 #include "Components/CapsuleComponent.h"
-#include "Camera/CameraComponent.h"
-#include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
 ABWSBaseCharacter::ABWSBaseCharacter()
@@ -28,15 +26,4 @@ void ABWSBaseCharacter::Tick(float DeltaTime)
 
 void ABWSBaseCharacter::InitializeComponents()
 {
-    /*
-        Thing to remember:
-        Default Root - CapsuleComponent (default component)
-        SkeletalMesh - you can get via GetMesh(). Is attached to Root by default.
-    */
-
-    SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
-    SpringArmComponent->SetupAttachment(GetRootComponent());
-
-    CameraComponent = CreateDefaultSubobject<UCameraComponent>(TEXT("CameraComponent"));
-    CameraComponent->SetupAttachment(SpringArmComponent);
 }

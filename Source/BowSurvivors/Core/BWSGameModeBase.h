@@ -9,7 +9,7 @@
 class ABWSPlayerCharacter;
 
 /**
- * Bow Survivors Game Mode class. Used for general setup.
+ *  Bow Survivors Game Mode class. Used for general setup.
  */
 UCLASS()
 class BOWSURVIVORS_API ABWSGameModeBase : public AGameModeBase

@@ -15,6 +15,10 @@ enum class EWeaponSlot : uint8
 
 class ABWSBaseWeapon;
 
+
+/**
+ *  Weapon component class that is attached to character and stores all weapon connected logic and data.
+ */
 UCLASS(ClassGroup = (Custom), meta = (BlueprintSpawnableComponent))
 class BOWSURVIVORS_API UBWSWeaponComponent : public UActorComponent
 {
@@ -43,9 +47,11 @@ public:
     void HolsterWeapon(ABWSBaseWeapon* const Weapon);
 
 protected:
+    /* Default BP that first weapon will be set to */
     UPROPERTY(EditDefaultsOnly, Category = "Weapons")
     TSubclassOf<ABWSBaseWeapon> DefaultFirstWeapon;
 
+    /* Default BP that second weapon will be set to */
     UPROPERTY(EditDefaultsOnly, Category = "Weapons")
     TSubclassOf<ABWSBaseWeapon> DefaultSecondWeapon;
 
@@ -69,6 +75,7 @@ private:
     ABWSBaseWeapon* SecondWeapon;
 
     /*
+        
         Name of socket to which weapon will be attached.
         Socket must exist on skeletal mesh of Character
     */

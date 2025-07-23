@@ -12,7 +12,7 @@ class ABWSPlayerCharacter;
 class UEnhancedInputComponent;
 
 /**
- * Default controller of player.
+ *  Default controller of player.
  */
 UCLASS()
 class BOWSURVIVORS_API ABWSPlayerController : public APlayerController

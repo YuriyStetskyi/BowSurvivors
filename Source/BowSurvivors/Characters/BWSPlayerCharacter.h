@@ -36,7 +36,7 @@ public:
 protected:
     virtual void BeginPlay() override;
 
-    void InitializeComponents();
+    virtual void PossessedBy(AController* NewController) override;
 
     /* Main Character Spring Arm that has camera attached to it */
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
@@ -50,7 +50,10 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Components")
     UBWSWeaponComponent* WeaponComponent;
 
-
 private:
+    void InitializeComponents();
+
+    /* Initialize AbilitySystem Info and Component/AttributeSet pointers from PlayerState */
+    void InitializeAbilitySystemInfo(); 
 
 };

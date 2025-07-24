@@ -18,6 +18,7 @@ public:
     ABWSEnemyCharacter();
 
 protected:
+    virtual void BeginPlay() override;
 
 private:
     /* Method that initializes all of the actors components */

@@ -6,6 +6,9 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/BWSWeaponComponent.h"
+#include "Core/BWSPlayerState.h"
+#include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
+#include "GameplayAbilitySystem/BWSAttributeSet.h"
 
 ABWSPlayerCharacter::ABWSPlayerCharacter(const FObjectInitializer& ObjectInitializer)
     : SpringArmComponent(nullptr)
@@ -33,6 +36,13 @@ void ABWSPlayerCharacter::BeginPlay()
     Super::BeginPlay();
 }
 
+void ABWSPlayerCharacter::PossessedBy(AController* NewController)
+{
+    Super::PossessedBy(NewController);
+
+    InitializeAbilitySystemInfo();
+}
+
 void ABWSPlayerCharacter::InitializeComponents()
 {
     /*
@@ -48,4 +58,17 @@ void ABWSPlayerCharacter::InitializeComponents()
     CameraComponent->SetupAttachment(SpringArmComponent);
 
     WeaponComponent = CreateDefaultSubobject<UBWSWeaponComponent>(TEXT("WeaponComponent"));
+}
+
+void ABWSPlayerCharacter::InitializeAbilitySystemInfo()
+{
+    ABWSPlayerState* const BWSPlayerState = GetPlayerState<ABWSPlayerState>();
+    if (!BWSPlayerState) return;
+    
+    UAbilitySystemComponent* const ASC = BWSPlayerState->GetAbilitySystemComponent();
+    if (!ASC) return;
+
+    ASC->InitAbilityActorInfo(BWSPlayerState, this);
+    AbilitySystemComponent = BWSPlayerState->GetAbilitySystemComponent();
+    AttributeSet = BWSPlayerState->GetAttributeSet();
 }

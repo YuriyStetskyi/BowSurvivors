@@ -10,6 +10,13 @@ ABWSEnemyCharacter::ABWSEnemyCharacter()
     InitializeComponents();
 }
 
+void ABWSEnemyCharacter::BeginPlay()
+{
+    Super::BeginPlay();
+
+    AbilitySystemComponent->InitAbilityActorInfo(this, this);
+}
+
 void ABWSEnemyCharacter::InitializeComponents()
 {
     AbilitySystemComponent = CreateDefaultSubobject<UBWSAbilitySystemComponent>(TEXT("AbilitySystemComponent"));

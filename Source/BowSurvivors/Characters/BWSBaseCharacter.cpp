@@ -3,12 +3,19 @@
 
 #include "Characters/BWSBaseCharacter.h"
 #include "Components/CapsuleComponent.h"
+#include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
+#include "GameplayAbilitySystem/BWSAttributeSet.h"
 
 // Sets default values
 ABWSBaseCharacter::ABWSBaseCharacter()
 {
     PrimaryActorTick.bCanEverTick = true;
     InitializeComponents();
+}
+
+UAbilitySystemComponent* ABWSBaseCharacter::GetAbilitySystemComponent() const
+{
+    return AbilitySystemComponent;
 }
 
 // Called when the game starts or when spawned

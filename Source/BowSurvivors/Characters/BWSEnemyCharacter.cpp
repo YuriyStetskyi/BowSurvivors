@@ -1,21 +1,16 @@
 // Copyright (c) 2025 Yuriy "Steyur" Stetskyi - MIT License.
 
 
-#include "Core/BWSPlayerState.h"
+#include "Characters/BWSEnemyCharacter.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
 
-ABWSPlayerState::ABWSPlayerState()
+ABWSEnemyCharacter::ABWSEnemyCharacter()
 {
     InitializeComponents();
 }
 
-UAbilitySystemComponent* ABWSPlayerState::GetAbilitySystemComponent() const
-{
-    return AbilitySystemComponent;
-}
-
-void ABWSPlayerState::InitializeComponents()
+void ABWSEnemyCharacter::InitializeComponents()
 {
     AbilitySystemComponent = CreateDefaultSubobject<UBWSAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
     AttributeSet = CreateDefaultSubobject<UBWSAttributeSet>(TEXT("AttributeSet"));

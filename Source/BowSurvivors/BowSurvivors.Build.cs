@@ -8,9 +8,9 @@ public class BowSurvivors : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "SlateCore", "Niagara", "GameplayAbilities", "GameplayTags" });
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "UMG", "SlateCore", "Niagara", "GameplayAbilities", "GameplayTags", "GameplayTasks" });
 
-        PublicIncludePaths.AddRange(new string[] { "BowSurvivors", "GameplayTasks" });
+        PublicIncludePaths.AddRange(new string[] { "BowSurvivors" });
 
         PrivateDependencyModuleNames.AddRange(new string[] {  });
 

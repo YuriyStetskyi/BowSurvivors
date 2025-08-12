@@ -9,6 +9,27 @@
 class UAbilitySystemComponent;
 class UAttributeSet;
 
+USTRUCT(BlueprintType)
+struct FWidgetControllerParams
+{
+    GENERATED_BODY()
+
+    FWidgetControllerParams();
+    FWidgetControllerParams(APlayerController* const PC, APlayerState* const PS, UAbilitySystemComponent* ASC, UAttributeSet* const AS);
+
+    UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
+    APlayerController* PlayerController;
+
+    UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
+    APlayerState* PlayerState;
+
+    UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
+    UAbilitySystemComponent* AbilitySystemComponent;
+
+    UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
+    UAttributeSet* AttributeSet;
+};
+
 /**
  * 
  */
@@ -16,8 +37,11 @@ UCLASS()
 class BOWSURVIVORS_API UBWSWidgetController : public UObject
 {
 	GENERATED_BODY()
-
 public:
+    UFUNCTION(BlueprintCallable)
+    void SetWidgetControllerParams(const FWidgetControllerParams& WCParams);
+
+protected:
     UPROPERTY(BlueprintReadOnly, Category = "WidgetController")
     APlayerController* PlayerController;
 

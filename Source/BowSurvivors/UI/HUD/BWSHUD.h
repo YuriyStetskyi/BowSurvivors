@@ -7,6 +7,11 @@
 #include "BWSHUD.generated.h"
 
 class UBWSUserWidget;
+class UBWSOverlayWidgetController;
+class UAbilitySystemComponent;
+class UAttributeSet;
+
+struct FWidgetControllerParams;
 
 /**
  * 
@@ -19,12 +24,18 @@ public:
     UPROPERTY()
     UBWSUserWidget* OverlayWidget; 
 
-protected:
-    virtual void BeginPlay() override;
+    void InitOverlay(APlayerController* const PC, APlayerState* const PS, UAbilitySystemComponent* ASC, UAttributeSet* const AS);
 
+protected:
+    UBWSOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
 
 private:
     UPROPERTY(EditAnywhere)
     TSubclassOf<UBWSUserWidget> OverlayWidgetClass;
 
+    UPROPERTY()
+    UBWSOverlayWidgetController* OverlayWidgetController;
+
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<UBWSOverlayWidgetController> OverlayWidgetControllerClass;
 };

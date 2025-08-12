@@ -9,6 +9,8 @@
 #include "Core/BWSPlayerState.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
+#include "Controllers/Player/BWSPlayerController.h"
+#include "UI/HUD/BWSHUD.h"
 
 ABWSPlayerCharacter::ABWSPlayerCharacter(const FObjectInitializer& ObjectInitializer)
     : SpringArmComponent(nullptr)
@@ -71,4 +73,12 @@ void ABWSPlayerCharacter::InitializeAbilitySystemInfo()
     ASC->InitAbilityActorInfo(BWSPlayerState, this);
     AbilitySystemComponent = BWSPlayerState->GetAbilitySystemComponent();
     AttributeSet = BWSPlayerState->GetAttributeSet();
+
+    ABWSPlayerController* const BWSPlayerController = Cast<ABWSPlayerController>(GetController());
+    if (!BWSPlayerController) return;
+
+    ABWSHUD* const HUD = Cast<ABWSHUD>(BWSPlayerController->GetHUD());
+    if (!HUD) return;
+
+    HUD->InitOverlay(BWSPlayerController, BWSPlayerState, AbilitySystemComponent, AttributeSet);
 }

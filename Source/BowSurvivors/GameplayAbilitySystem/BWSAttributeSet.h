@@ -24,7 +24,6 @@ class BOWSURVIVORS_API UBWSAttributeSet : public UAttributeSet
 public:
     UBWSAttributeSet(const FObjectInitializer& ObjectInitializer);
 	
-protected:
     UPROPERTY(BlueprintReadOnly, Category = "Vitals")
     FGameplayAttributeData Health;
     ATTRIBUTE_ACCESSORS(UBWSAttributeSet, Health);

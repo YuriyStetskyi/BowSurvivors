@@ -32,3 +32,8 @@ void UBWSWidgetController::SetWidgetControllerParams(const FWidgetControllerPara
     AbilitySystemComponent = WCParams.AbilitySystemComponent;
     AttributeSet = WCParams.AttributeSet;
 }
+
+void UBWSWidgetController::BroadcastInitialValues()
+{
+
+}

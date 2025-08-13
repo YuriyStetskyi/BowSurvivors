@@ -25,6 +25,7 @@ void ABWSHUD::InitOverlay(APlayerController* const PC, APlayerState* const PS, U
     UBWSOverlayWidgetController* const WidgetController = GetOverlayWidgetController(WidgetControllerParams);
 
     OverlayWidget->SetWidgetController(WidgetController);
+    WidgetController->BroadcastInitialValues();
 
     Widget->AddToViewport();
 }

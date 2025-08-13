@@ -6,12 +6,25 @@
 #include "UI/WidgetController/BWSWidgetController.h"
 #include "BWSOverlayWidgetController.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
+
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class BOWSURVIVORS_API UBWSOverlayWidgetController : public UBWSWidgetController
 {
 	GENERATED_BODY()
 	
+public:
+    virtual void BroadcastInitialValues() override;
+
+protected:
+    UPROPERTY(BlueprintAssignable, Category = "GAS | Attributes")
+    FOnHealthChangedSignature OnHealthChanged;
+
+    UPROPERTY(BlueprintAssignable, Category = "GAS | Attributes")
+    FOnMaxHealthChangedSignature OnMaxHealthChanged;
+
 };

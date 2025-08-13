@@ -33,6 +33,17 @@ void ABWSPlayerCharacter::Shoot(const FInputActionValue& InputActionValue)
     WeaponComponent->Attack();
 }
 
+void ABWSPlayerCharacter::Test_TakeDamage(float Damage)
+{
+    ABWSPlayerState* const PS = Cast<ABWSPlayerState>(GetPlayerState());
+    if (!PS) return;
+
+    float CurrentHP = UBWSAttributeSet::GetHealthAttribute().GetNumericValue(PS->GetAttributeSet());
+
+    PS->GetAbilitySystemComponent()->SetNumericAttributeBase(UBWSAttributeSet::GetHealthAttribute(), CurrentHP - Damage);
+
+}
+
 void ABWSPlayerCharacter::BeginPlay()
 {
     Super::BeginPlay();

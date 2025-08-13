@@ -37,3 +37,8 @@ void UBWSWidgetController::BroadcastInitialValues()
 {
 
 }
+
+void UBWSWidgetController::BindCallbacksToDependencies()
+{
+
+}

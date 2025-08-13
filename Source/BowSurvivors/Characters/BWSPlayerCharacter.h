@@ -33,6 +33,9 @@ public:
     FORCEINLINE USpringArmComponent* const GetSpringArmComponen() { return SpringArmComponent; }
     FORCEINLINE UCameraComponent* const GetCameraComponent() { return CameraComponent; }
 
+    /* PURE DEBUG FUNCTION SHOULD BE REMOVED LATER*/
+    UFUNCTION(BlueprintCallable)
+    void Test_TakeDamage(float Damage);
 protected:
     virtual void BeginPlay() override;
 

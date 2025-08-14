@@ -5,7 +5,7 @@
 
 UBWSAttributeSet::UBWSAttributeSet(const FObjectInitializer& ObjectInitializer)
 {
-    InitHealth(100.0f);
+    InitHealth(30.0f);
     InitMaxHealth(100.0f);
     InitMoney(500.0f);
 }

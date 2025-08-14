@@ -36,6 +36,10 @@ public:
     /* PURE DEBUG FUNCTION SHOULD BE REMOVED LATER*/
     UFUNCTION(BlueprintCallable)
     void Test_TakeDamage(float Damage);
+
+    /* PURE DEBUG FUNCTION SHOULD BE REMOVED LATER*/
+    UFUNCTION(BlueprintCallable)
+    void Test_AddGold(float MoneyToAdd);
 protected:
     virtual void BeginPlay() override;
 

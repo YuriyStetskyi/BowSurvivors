@@ -33,6 +33,7 @@ void ABWSPlayerCharacter::Shoot(const FInputActionValue& InputActionValue)
     WeaponComponent->Attack();
 }
 
+/* PURE DEBUG FUNCTION SHOULD BE REMOVED LATER*/
 void ABWSPlayerCharacter::Test_TakeDamage(float Damage)
 {
     ABWSPlayerState* const PS = Cast<ABWSPlayerState>(GetPlayerState());
@@ -41,7 +42,16 @@ void ABWSPlayerCharacter::Test_TakeDamage(float Damage)
     float CurrentHP = UBWSAttributeSet::GetHealthAttribute().GetNumericValue(PS->GetAttributeSet());
 
     PS->GetAbilitySystemComponent()->SetNumericAttributeBase(UBWSAttributeSet::GetHealthAttribute(), CurrentHP - Damage);
+}
 
+void ABWSPlayerCharacter::Test_AddGold(float MoneyToAdd)
+{
+    ABWSPlayerState* const PS = Cast<ABWSPlayerState>(GetPlayerState());
+    if (!PS) return;
+
+    float CurrentMoney = UBWSAttributeSet::GetMoneyAttribute().GetNumericValue(PS->GetAttributeSet());
+
+    PS->GetAbilitySystemComponent()->SetNumericAttributeBase(UBWSAttributeSet::GetMoneyAttribute(), CurrentMoney + MoneyToAdd);
 }
 
 void ABWSPlayerCharacter::BeginPlay()

@@ -11,6 +11,7 @@ void UBWSOverlayWidgetController::BroadcastInitialValues()
 
     OnHealthChanged.Broadcast(BWSAttributeSet->GetHealth());
     OnMaxHealthChanged.Broadcast(BWSAttributeSet->GetMaxHealth());
+    OnMoneyChanged.Broadcast(BWSAttributeSet->GetMoney());
 }
 
 void UBWSOverlayWidgetController::BindCallbacksToDependencies()
@@ -23,6 +24,9 @@ void UBWSOverlayWidgetController::BindCallbacksToDependencies()
 
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
         BWSAttributeSet->GetMaxHealthAttribute()).AddUObject(this, &UBWSOverlayWidgetController::MaxHealthChanged);
+
+    AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
+        BWSAttributeSet->GetMoneyAttribute()).AddUObject(this, &UBWSOverlayWidgetController::MoneyChanged);
 }
 
 void UBWSOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data)
@@ -33,4 +37,9 @@ void UBWSOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Da
 void UBWSOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& Data)
 {
     OnMaxHealthChanged.Broadcast(Data.NewValue);
+}
+
+void UBWSOverlayWidgetController::MoneyChanged(const FOnAttributeChangeData& Data)
+{
+    OnMoneyChanged.Broadcast(Data.NewValue);
 }

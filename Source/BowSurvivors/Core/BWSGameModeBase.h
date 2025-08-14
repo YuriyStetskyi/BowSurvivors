@@ -20,5 +20,6 @@ public:
 
     ABWSGameModeBase(const FObjectInitializer& ObjectInitializer);
 
+    /* Begin Play analog for GameMode class */
     virtual void StartPlay() override;
 };

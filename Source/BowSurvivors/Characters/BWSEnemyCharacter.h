@@ -7,7 +7,7 @@
 #include "BWSEnemyCharacter.generated.h"
 
 /**
- * 
+ *  Enemy Character class. Inherits ABWSBaseCharacter. Represents all enemies in the game.
  */
 UCLASS()
 class BOWSURVIVORS_API ABWSEnemyCharacter : public ABWSBaseCharacter

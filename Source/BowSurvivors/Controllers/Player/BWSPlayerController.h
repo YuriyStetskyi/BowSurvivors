@@ -26,6 +26,7 @@ public:
     virtual void Tick(float DeltaTime) override;
 
 protected:
+    /* Called when controller possesses a pawn */
     virtual void OnPossess(APawn* ControlledPawn) override;
 
     /* Cached Enhanced Input Compoennt reference */

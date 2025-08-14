@@ -14,7 +14,7 @@ GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
 /**
- * 
+ *  If actor has Ability System Component - Attribute Set stores all the attributes to be interacted with.
  */
 UCLASS()
 class BOWSURVIVORS_API UBWSAttributeSet : public UAttributeSet
@@ -24,14 +24,17 @@ class BOWSURVIVORS_API UBWSAttributeSet : public UAttributeSet
 public:
     UBWSAttributeSet(const FObjectInitializer& ObjectInitializer);
 	
+    /* Health property. Represents actors current Health amount */
     UPROPERTY(BlueprintReadOnly, Category = "Vitals")
     FGameplayAttributeData Health;
     ATTRIBUTE_ACCESSORS(UBWSAttributeSet, Health);
 
+    /* Max Health property. Represents actors max Health amount */
     UPROPERTY(BlueprintReadOnly, Category = "Vitals")
     FGameplayAttributeData MaxHealth;
     ATTRIBUTE_ACCESSORS(UBWSAttributeSet, MaxHealth);
 
+    /* Money property. Represents actors current money amount */
     UPROPERTY(BlueprintReadOnly, Category = "Vitals")
     FGameplayAttributeData Money;
     ATTRIBUTE_ACCESSORS(UBWSAttributeSet, Money);

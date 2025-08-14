@@ -7,7 +7,7 @@
 #include "BWSAbilitySystemComponent.generated.h"
 
 /**
- * 
+ *  Main GAS class. Every actor that is supposed to interact with GAS should have this class.
  */
 UCLASS()
 class BOWSURVIVORS_API UBWSAbilitySystemComponent : public UAbilitySystemComponent

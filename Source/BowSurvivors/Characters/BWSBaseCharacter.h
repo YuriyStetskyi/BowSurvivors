@@ -36,7 +36,7 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Components | GAS")
     UAbilitySystemComponent* AbilitySystemComponent;
 
-    /* Attribute set - stores all values connected to Gameplay Ability System */
+    /* Attribute set - stores all values (attributes) connected to Gameplay Ability System */
     UPROPERTY(EditDefaultsOnly, Category = "Components | GAS")
     UAttributeSet* AttributeSet;
 
@@ -44,5 +44,4 @@ public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;
 
-    /* Create Components at BeginPlay() */
 };

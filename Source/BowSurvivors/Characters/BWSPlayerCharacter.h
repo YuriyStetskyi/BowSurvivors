@@ -43,6 +43,7 @@ public:
 protected:
     virtual void BeginPlay() override;
 
+    /* Called when Character is possessed by a Controller */
     virtual void PossessedBy(AController* NewController) override;
 
     /* Main Character Spring Arm that has camera attached to it */
@@ -58,6 +59,7 @@ protected:
     UBWSWeaponComponent* WeaponComponent;
 
 private:
+    /* Initializes main components of character (on compile) */
     void InitializeComponents();
 
     /* Initialize AbilitySystem Info and Component/AttributeSet pointers from PlayerState */

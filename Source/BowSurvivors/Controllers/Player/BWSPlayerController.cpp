@@ -96,10 +96,6 @@ FVector ABWSPlayerController::FindProjectedMouseLocation(ECollisionChannel Proje
     FHitResult HitResult;
     GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ProjectionCollisionChannel);
 
-    /* Debug */
-    //FHitResult DebugHitResult;
-    //UKismetSystemLibrary::LineTraceSingle(this, Start, End, UEngineTypes::ConvertToTraceType(CursorProjectionChannel), false, {}, EDrawDebugTrace::ForOneFrame, DebugHitResult, true);
-
     if (!HitResult.bBlockingHit) return FVector::ZeroVector;
 
     return HitResult.ImpactPoint;

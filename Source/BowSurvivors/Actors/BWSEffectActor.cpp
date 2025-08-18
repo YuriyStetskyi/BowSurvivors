@@ -22,19 +22,19 @@ void ABWSEffectActor::BeginPlay()
 	
 }
 
-void ABWSEffectActor::ApplyEffectToTarget(AActor* const Target, TSubclassOf<UGameplayEffect> GameplayEffectClass)
+void ABWSEffectActor::ApplyEffectToTarget(AActor* const TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass)
 {
-    UAbilitySystemComponent* const TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(Target);
+    UAbilitySystemComponent* const TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(TargetActor);
     if (!TargetASC) return;
+
+    check(GameplayEffectClass);
 
     FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
     EffectContextHandle.AddSourceObject(this);
 
     FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1, EffectContextHandle);
 
-
-    TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());
-         
+    TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());         
 }
 
 // Called every frame

@@ -4,13 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "GameplayEffectTypes.h"
 #include "BWSEffectActor.generated.h"
 
 class UGameplayEffect;
+class UAbilitySystemComponent;
 
 UENUM(BlueprintType)
 enum class EEffectApplicationPolicy : uint8
-{
+{     
     ApplyOnOverlap,
     ApplyOnEndOverlap,
     DoNotApply
@@ -68,6 +70,8 @@ protected:
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Applied Effects")
     EEffectRemovalPolicy InfiniteEffectRemovalPolicy;
+
+    TMap <FActiveGameplayEffectHandle, UAbilitySystemComponent*> ActiveEffectHandles;
 
 
 public:	

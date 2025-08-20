@@ -13,6 +13,42 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+USTRUCT(BlueprintType)
+struct FEffectProperties
+{
+    GENERATED_BODY()
+
+    FEffectProperties();
+
+    FGameplayEffectContextHandle EffectContextHandle;
+
+    UPROPERTY()
+    UAbilitySystemComponent* SourceASC;
+
+    UPROPERTY()
+    AActor* SourceAvatarActor;
+
+    UPROPERTY()
+    AController* SourceController;
+
+    UPROPERTY()
+    ACharacter* SourceCharacter;
+
+    UPROPERTY()
+    UAbilitySystemComponent* TargetASC;
+
+    UPROPERTY()
+    AActor* TargetAvatarActor;
+
+    UPROPERTY()
+    AController* TargetController;
+
+    UPROPERTY()
+    ACharacter* TargetCharacter;
+
+};
+
+
 /**
  *  If actor has Ability System Component - Attribute Set stores all the attributes to be interacted with.
  */
@@ -23,7 +59,10 @@ class BOWSURVIVORS_API UBWSAttributeSet : public UAttributeSet
 
 public:
     UBWSAttributeSet(const FObjectInitializer& ObjectInitializer);
-	
+
+    virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+    virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
+
     /* Health property. Represents actors current Health amount */
     UPROPERTY(BlueprintReadOnly, Category = "Vitals")
     FGameplayAttributeData Health;
@@ -40,5 +79,6 @@ public:
     ATTRIBUTE_ACCESSORS(UBWSAttributeSet, Money);
 
 private:
+    void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;
 
 };

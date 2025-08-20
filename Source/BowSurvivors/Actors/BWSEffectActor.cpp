@@ -8,6 +8,11 @@
 
 // Sets default values
 ABWSEffectActor::ABWSEffectActor()
+    : bDestroyOnRemoval(false)
+    , InstantEffectApplicationPolicy(EEffectApplicationPolicy::DoNotApply)
+    , DurationEffectApplicationPolicy(EEffectApplicationPolicy::DoNotApply)
+    , InfiniteEffectApplicationPolicy(EEffectApplicationPolicy::DoNotApply)
+    , InfiniteEffectRemovalPolicy(EEffectRemovalPolicy::DoNotRemove)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -34,7 +39,19 @@ void ABWSEffectActor::ApplyEffectToTarget(AActor* const TargetActor, TSubclassOf
 
     FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1, EffectContextHandle);
 
-    TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());         
+    TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());  
+
+    EffectSpecHandle.Get()->
+}
+
+void ABWSEffectActor::OnOverlap(AActor* const TargetActor)
+{
+
+}
+
+void ABWSEffectActor::OnEndOverlap(AActor* const TargetActor)
+{
+
 }
 
 // Called every frame

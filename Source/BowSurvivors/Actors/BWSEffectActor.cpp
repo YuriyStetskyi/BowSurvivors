@@ -13,6 +13,7 @@ ABWSEffectActor::ABWSEffectActor()
     , DurationEffectApplicationPolicy(EEffectApplicationPolicy::DoNotApply)
     , InfiniteEffectApplicationPolicy(EEffectApplicationPolicy::DoNotApply)
     , InfiniteEffectRemovalPolicy(EEffectRemovalPolicy::DoNotRemove)
+    , ActorLevel(1.0f)
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
@@ -37,7 +38,7 @@ void ABWSEffectActor::ApplyEffectToTarget(AActor* const TargetActor, TSubclassOf
     FGameplayEffectContextHandle EffectContextHandle = TargetASC->MakeEffectContext();
     EffectContextHandle.AddSourceObject(this);
 
-    FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, 1, EffectContextHandle);
+    FGameplayEffectSpecHandle EffectSpecHandle = TargetASC->MakeOutgoingSpec(GameplayEffectClass, ActorLevel, EffectContextHandle);
 
     FActiveGameplayEffectHandle ActiveEffectHandle = TargetASC->ApplyGameplayEffectSpecToSelf(*EffectSpecHandle.Data.Get());  
 

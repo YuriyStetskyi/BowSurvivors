@@ -24,6 +24,11 @@ void ABWSBaseCharacter::BeginPlay()
     Super::BeginPlay();
 }
 
+void ABWSBaseCharacter::InitializeAbilityActorInfo()
+{
+
+}
+
 // Called every frame
 void ABWSBaseCharacter::Tick(float DeltaTime)
 {

@@ -63,7 +63,7 @@ void ABWSPlayerCharacter::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
 
-    InitializeAbilitySystemInfo();
+    InitializeAbilityActorInfo();
 }
 
 void ABWSPlayerCharacter::InitializeComponents()
@@ -83,15 +83,20 @@ void ABWSPlayerCharacter::InitializeComponents()
     WeaponComponent = CreateDefaultSubobject<UBWSWeaponComponent>(TEXT("WeaponComponent"));
 }
 
-void ABWSPlayerCharacter::InitializeAbilitySystemInfo()
+void ABWSPlayerCharacter::InitializeAbilityActorInfo()
 {
     ABWSPlayerState* const BWSPlayerState = GetPlayerState<ABWSPlayerState>();
     if (!BWSPlayerState) return;
     
-    UAbilitySystemComponent* const ASC = BWSPlayerState->GetAbilitySystemComponent();
-    if (!ASC) return;
+    UAbilitySystemComponent* const GenericASC = BWSPlayerState->GetAbilitySystemComponent();
+    if (!GenericASC) return;
 
-    ASC->InitAbilityActorInfo(BWSPlayerState, this);
+    UBWSAbilitySystemComponent* const BWSASC = Cast<UBWSAbilitySystemComponent>(GenericASC);
+    if (!BWSASC) return;
+
+    GenericASC->InitAbilityActorInfo(BWSPlayerState, this);
+    BWSASC->AbilityActorInfoSet();
+
     AbilitySystemComponent = BWSPlayerState->GetAbilitySystemComponent();
     AttributeSet = BWSPlayerState->GetAttributeSet();
 

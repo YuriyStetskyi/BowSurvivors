@@ -14,7 +14,17 @@ void ABWSEnemyCharacter::BeginPlay()
 {
     Super::BeginPlay();
 
+    InitializeAbilityActorInfo();
+}
+
+void ABWSEnemyCharacter::InitializeAbilityActorInfo()
+{
     AbilitySystemComponent->InitAbilityActorInfo(this, this);
+
+    UBWSAbilitySystemComponent* const ASC = Cast<UBWSAbilitySystemComponent>(AbilitySystemComponent);
+    if (!ASC) return;
+
+    ASC->AbilityActorInfoSet();
 }
 
 void ABWSEnemyCharacter::InitializeComponents()

@@ -6,6 +6,8 @@
 #include "AbilitySystemComponent.h"
 #include "BWSAbilitySystemComponent.generated.h"
 
+DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /* AssetTags */);
+
 /**
  *  Main GAS class. Every actor that is supposed to interact with GAS should have this class.
  */
@@ -14,4 +16,17 @@ class BOWSURVIVORS_API UBWSAbilitySystemComponent : public UAbilitySystemCompone
 {
 	GENERATED_BODY()
 	
+public:
+
+    void AbilityActorInfoSet();
+   
+    FEffectAssetTags EffectAssetTags;
+
+protected:
+    void OnGameplayEffectAppliedToSelf(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);
+
+
+private:
+
+
 };

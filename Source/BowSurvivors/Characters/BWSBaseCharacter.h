@@ -40,6 +40,8 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Components | GAS")
     UAttributeSet* AttributeSet;
 
+    virtual void InitializeAbilityActorInfo();
+
 public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;

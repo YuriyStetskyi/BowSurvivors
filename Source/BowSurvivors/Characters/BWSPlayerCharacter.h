@@ -58,11 +58,12 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Components")
     UBWSWeaponComponent* WeaponComponent;
 
+    /* Initialize AbilitySystem Info and Component/AttributeSet pointers from PlayerState */
+    virtual void InitializeAbilityActorInfo() override; 
+
 private:
     /* Initializes main components of character (on compile) */
     void InitializeComponents();
 
-    /* Initialize AbilitySystem Info and Component/AttributeSet pointers from PlayerState */
-    void InitializeAbilitySystemInfo(); 
 
 };

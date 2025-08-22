@@ -3,6 +3,7 @@
 
 #include "UI/WidgetController/BWSOverlayWidgetController.h"
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
+#include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 
 void UBWSOverlayWidgetController::BroadcastInitialValues()
 {
@@ -27,6 +28,17 @@ void UBWSOverlayWidgetController::BindCallbacksToDependencies()
 
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
         BWSAttributeSet->GetMoneyAttribute()).AddUObject(this, &UBWSOverlayWidgetController::MoneyChanged);
+
+    UBWSAbilitySystemComponent* const ASC = Cast<UBWSAbilitySystemComponent>(AbilitySystemComponent);
+    if (!ASC) return;
+
+    ASC->EffectAssetTags.AddLambda([this](const FGameplayTagContainer& AssetTags) 
+        {
+            for (const FGameplayTag& Tag : AssetTags)
+            {
+                GEngine->AddOnScreenDebugMessage(-1, 8.0f, FColor::Green, Tag.ToString());
+            }
+        });
 }
 
 void UBWSOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data)

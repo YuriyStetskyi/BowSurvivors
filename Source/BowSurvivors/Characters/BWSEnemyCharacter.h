@@ -20,6 +20,8 @@ public:
 protected:
     virtual void BeginPlay() override;
 
+    virtual void InitializeAbilityActorInfo() override;
+
 private:
     /* Method that initializes all of the actors components */
     void InitializeComponents();

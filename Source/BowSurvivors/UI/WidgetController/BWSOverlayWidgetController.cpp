@@ -4,6 +4,7 @@
 #include "UI/WidgetController/BWSOverlayWidgetController.h"
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
+#include "UI/Widgets/BWSUserWidget.h"
 
 void UBWSOverlayWidgetController::BroadcastInitialValues()
 {

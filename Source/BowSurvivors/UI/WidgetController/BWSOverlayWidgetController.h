@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "UI/WidgetController/BWSWidgetController.h"
+#include "GameplayTagContainer.h"
 #include "BWSOverlayWidgetController.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
@@ -11,6 +12,26 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float,
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMoneyChangedSignature, float, NewMoney);
 
 struct FOnAttributeChangeData;
+class UBWSUserWidget;
+
+USTRUCT(BlueprintType)
+struct FUIWidgetRow : public FTableRowBase
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FGameplayTag MessageTag;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FText Message;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TSubclassOf<UBWSUserWidget> MessageWidget;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UTexture2D* Image;
+
+};
 
 /**
  *  Overlay Widget Controller class. Controls OverlayWidget.
@@ -48,5 +69,8 @@ protected:
 
     /* Bound to Money attribute changed delegate in GAS. Broadcasts OnMoneyChanged */
     void MoneyChanged(const FOnAttributeChangeData& Data);
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
+    UDataTable* MessageWidgetDataTable;
 
 };

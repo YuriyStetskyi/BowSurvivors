@@ -29,7 +29,7 @@ void UBWSOverlayWidgetController::BindCallbacksToDependencies()
 
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
         BWSAttributeSet->GetMoneyAttribute()).AddUObject(this, &UBWSOverlayWidgetController::MoneyChanged);
-
+    
     UBWSAbilitySystemComponent* const ASC = Cast<UBWSAbilitySystemComponent>(AbilitySystemComponent);
     if (!ASC) return;
 
@@ -37,7 +37,12 @@ void UBWSOverlayWidgetController::BindCallbacksToDependencies()
         {
             for (const FGameplayTag& Tag : AssetTags)
             {
-                GEngine->AddOnScreenDebugMessage(-1, 8.0f, FColor::Green, Tag.ToString());
+                FGameplayTag MessageTag = FGameplayTag::RequestGameplayTag(FName("Message"));
+                if (!Tag.MatchesTag(MessageTag)) continue;
+
+                const FUIWidgetRow* const Row = GetDataTableRowByTag<FUIWidgetRow>(MessageWidgetDataTable, Tag);
+                if (!Row) continue;
+                MessageWidgetRowDelegate.Broadcast(*Row);
             }
         });
 }

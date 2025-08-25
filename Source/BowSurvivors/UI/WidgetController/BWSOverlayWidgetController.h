@@ -7,12 +7,8 @@
 #include "GameplayTagContainer.h"
 #include "BWSOverlayWidgetController.generated.h"
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMoneyChangedSignature, float, NewMoney);
-
-struct FOnAttributeChangeData;
 class UBWSUserWidget;
+struct FOnAttributeChangeData;
 
 USTRUCT(BlueprintType)
 struct FUIWidgetRow : public FTableRowBase
@@ -32,6 +28,12 @@ struct FUIWidgetRow : public FTableRowBase
     UTexture2D* Image;
 
 };
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMoneyChangedSignature, float, NewMoney);
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUIWidgetRow, Row);
 
 /**
  *  Overlay Widget Controller class. Controls OverlayWidget.
@@ -60,6 +62,9 @@ public:
     UPROPERTY(BlueprintAssignable, Category = "GAS | Attributes")
     FOnMoneyChangedSignature OnMoneyChanged;
 
+    UPROPERTY(BlueprintAssignable, Category = "GAS | Messages")
+    FMessageWidgetRowSignature MessageWidgetRowDelegate;
+
 protected:
     /* Bound to Health attribute changed delegate in GAS. Broadcasts OnHealthChanged */
     void HealthChanged(const FOnAttributeChangeData& Data);
@@ -73,4 +78,13 @@ protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
     UDataTable* MessageWidgetDataTable;
 
+    template <typename T>
+    T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);
+
 };
+
+template<typename T>
+inline T* UBWSOverlayWidgetController::GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag)
+{
+    return DataTable->FindRow<T>(Tag.GetTagName(), TEXT(""));
+}

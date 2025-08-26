@@ -40,6 +40,11 @@ void UBWSAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 
     FEffectProperties Props;
     SetEffectProperties(Data, Props);
+
+    if (Data.EvaluatedData.Attribute == GetHealthAttribute())
+    {
+        SetHealth(FMath::Clamp(GetHealth(), 0, GetMaxHealth()));
+    }
 }
 
 void UBWSAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const

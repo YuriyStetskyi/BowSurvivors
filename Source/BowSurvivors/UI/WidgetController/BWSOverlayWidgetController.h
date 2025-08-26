@@ -29,9 +29,7 @@ struct FUIWidgetRow : public FTableRowBase
 
 };
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnHealthChangedSignature, float, NewHealth);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMaxHealthChangedSignature, float, NewMaxHealth);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMoneyChangedSignature, float, NewMoney);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangedSignature, float, NewValue);
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUIWidgetRow, Row);
 
@@ -52,29 +50,20 @@ public:
 
     /* Broadcasted when health is changed. */
     UPROPERTY(BlueprintAssignable, Category = "GAS | Attributes")
-    FOnHealthChangedSignature OnHealthChanged;
+    FOnAttributeChangedSignature OnHealthChanged;
 
     /* Broadcasted when Maximum Health is changed */
     UPROPERTY(BlueprintAssignable, Category = "GAS | Attributes")
-    FOnMaxHealthChangedSignature OnMaxHealthChanged;
+    FOnAttributeChangedSignature OnMaxHealthChanged;
 
     /* Broadcasted when current Money amount is changed */
     UPROPERTY(BlueprintAssignable, Category = "GAS | Attributes")
-    FOnMoneyChangedSignature OnMoneyChanged;
+    FOnAttributeChangedSignature OnMoneyChanged;
 
     UPROPERTY(BlueprintAssignable, Category = "GAS | Messages")
     FMessageWidgetRowSignature MessageWidgetRowDelegate;
 
 protected:
-    /* Bound to Health attribute changed delegate in GAS. Broadcasts OnHealthChanged */
-    void HealthChanged(const FOnAttributeChangeData& Data);
-
-    /* Bound to MaxHealth attribute changed delegate in GAS. Broadcasts OnMaxHealthChanged */
-    void MaxHealthChanged(const FOnAttributeChangeData& Data);
-
-    /* Bound to Money attribute changed delegate in GAS. Broadcasts OnMoneyChanged */
-    void MoneyChanged(const FOnAttributeChangeData& Data);
-
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
     UDataTable* MessageWidgetDataTable;
 

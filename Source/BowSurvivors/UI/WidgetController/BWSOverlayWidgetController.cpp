@@ -22,13 +22,22 @@ void UBWSOverlayWidgetController::BindCallbacksToDependencies()
     if (!BWSAttributeSet) return;
    
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-        BWSAttributeSet->GetHealthAttribute()).AddUObject(this, &UBWSOverlayWidgetController::HealthChanged);
+        BWSAttributeSet->GetHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+            {
+                OnHealthChanged.Broadcast(Data.NewValue);
+            });
 
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-        BWSAttributeSet->GetMaxHealthAttribute()).AddUObject(this, &UBWSOverlayWidgetController::MaxHealthChanged);
+        BWSAttributeSet->GetMaxHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+            {
+                OnMaxHealthChanged.Broadcast(Data.NewValue);
+            });
 
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-        BWSAttributeSet->GetMoneyAttribute()).AddUObject(this, &UBWSOverlayWidgetController::MoneyChanged);
+        BWSAttributeSet->GetMoneyAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+            {
+                OnMoneyChanged.Broadcast(Data.NewValue);
+            });
     
     UBWSAbilitySystemComponent* const ASC = Cast<UBWSAbilitySystemComponent>(AbilitySystemComponent);
     if (!ASC) return;
@@ -45,19 +54,4 @@ void UBWSOverlayWidgetController::BindCallbacksToDependencies()
                 MessageWidgetRowDelegate.Broadcast(*Row);
             }
         });
-}
-
-void UBWSOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data)
-{
-    OnHealthChanged.Broadcast(Data.NewValue);
-}
-
-void UBWSOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& Data)
-{
-    OnMaxHealthChanged.Broadcast(Data.NewValue);
-}
-
-void UBWSOverlayWidgetController::MoneyChanged(const FOnAttributeChangeData& Data)
-{
-    OnMoneyChanged.Broadcast(Data.NewValue);
 }

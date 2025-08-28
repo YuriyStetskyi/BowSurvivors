@@ -107,4 +107,6 @@ void ABWSPlayerCharacter::InitializeAbilityActorInfo()
     if (!HUD) return;
 
     HUD->InitOverlay(BWSPlayerController, BWSPlayerState, AbilitySystemComponent, AttributeSet);
+
+    InitializeDefaultAttributes();
 }

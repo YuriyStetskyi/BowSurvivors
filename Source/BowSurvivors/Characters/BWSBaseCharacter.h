@@ -9,6 +9,7 @@
 
 class UAbilitySystemComponent;
 class UAttributeSet;
+class UGameplayEffect;
 
 /**
  *  Base class of all character type actors. All enemies, npcs and player should inherit this class.
@@ -41,6 +42,11 @@ protected:
     UAttributeSet* AttributeSet;
 
     virtual void InitializeAbilityActorInfo();
+
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+    TSubclassOf<UGameplayEffect> DefaultAttributes;
+
+    void InitializeDefaultAttributes() const;
 
 public:
     // Called every frame

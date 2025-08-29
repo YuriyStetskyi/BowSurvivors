@@ -1,0 +1,17 @@
+// Copyright (c) 2025 Yuriy "Steyur" Stetskyi - MIT License.
+
+#pragma once
+
+#include "CoreMinimal.h"
+#include "GameplayAbilitySystem/BWSAttributeSet.h"
+#include "BWSWeaponAttributeSet.generated.h"
+
+/**
+ * 
+ */
+UCLASS()
+class BOWSURVIVORS_API UBWSWeaponAttributeSet : public UBWSAttributeSet
+{
+	GENERATED_BODY()
+	
+};

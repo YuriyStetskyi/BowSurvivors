@@ -9,9 +9,7 @@
 UBWSCharacterAttributeSet::UBWSCharacterAttributeSet(const FObjectInitializer& ObjectInitializer)
     : Super(ObjectInitializer)
 {
-    InitHealth(30.0f);
-    InitMaxHealth(100.0f);
-    InitMoney(500.0f);
+
 }
 
 void UBWSCharacterAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
@@ -36,6 +34,8 @@ void UBWSCharacterAttributeSet::PreAttributeChange(const FGameplayAttribute& Att
 
 void UBWSCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
 {
+    Super::PostGameplayEffectExecute(Data);
+
     if (Data.EvaluatedData.Attribute == GetHealthAttribute())
     {
         SetHealth(FMath::Clamp(GetHealth(), 0, GetMaxHealth()));

@@ -30,16 +30,22 @@ void ABWSBaseCharacter::InitializeAbilityActorInfo()
 
 }
 
-void ABWSBaseCharacter::InitializeDefaultAttributes() const
+void ABWSBaseCharacter::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level)
 {
     UAbilitySystemComponent* const ASC = GetAbilitySystemComponent();
     check(IsValid(ASC));
-    
-    checkf(DefaultAttributes, TEXT("Please set DefaultAttributes in Character that triggered a crash "));
+
+    check(GameplayEffectClass);
 
     const FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
-    const FGameplayEffectSpecHandle EffectSpecHandle = ASC->MakeOutgoingSpec(DefaultAttributes, 1.0f, EffectContext);
+    const FGameplayEffectSpecHandle EffectSpecHandle = ASC->MakeOutgoingSpec(GameplayEffectClass, Level, EffectContext);
     ASC->ApplyGameplayEffectSpecToTarget(*EffectSpecHandle.Data.Get(), ASC);
+}
+
+void ABWSBaseCharacter::InitializeDefaultAttributes()
+{
+    ApplyEffectToSelf(MaxAttributesInitializerEffect, 1.0f);
+    ApplyEffectToSelf(CurrentAttributesInitializerEffect, 1.0f);
 }
 
 // Called every frame

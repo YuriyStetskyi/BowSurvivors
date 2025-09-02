@@ -44,9 +44,16 @@ protected:
     virtual void InitializeAbilityActorInfo();
 
     UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
-    TSubclassOf<UGameplayEffect> DefaultAttributes;
+    TSubclassOf<UGameplayEffect> MaxAttributesInitializerEffect;
 
-    void InitializeDefaultAttributes() const;
+    UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
+    TSubclassOf<UGameplayEffect> CurrentAttributesInitializerEffect;
+
+    void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level);
+
+    void InitializeDefaultAttributes();
+    void InitializeMaxAttributes() const;
+    void InitializeCurrentAttributes() const;
 
 public:
     // Called every frame

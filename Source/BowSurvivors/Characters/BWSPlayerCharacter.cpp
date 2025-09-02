@@ -8,6 +8,7 @@
 #include "Components/BWSWeaponComponent.h"
 #include "Core/BWSPlayerState.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
+#include "GameplayAbilitySystem/AttributeSet/BWSCharacterAttributeSet.h"
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
 #include "Controllers/Player/BWSPlayerController.h"
 #include "UI/HUD/BWSHUD.h"
@@ -39,9 +40,9 @@ void ABWSPlayerCharacter::Test_TakeDamage(float Damage)
     ABWSPlayerState* const PS = Cast<ABWSPlayerState>(GetPlayerState());
     if (!PS) return;
 
-    float CurrentHP = UBWSAttributeSet::GetHealthAttribute().GetNumericValue(PS->GetAttributeSet());
+    float CurrentHP = UBWSCharacterAttributeSet::GetHealthAttribute().GetNumericValue(PS->GetAttributeSet());
 
-    PS->GetAbilitySystemComponent()->SetNumericAttributeBase(UBWSAttributeSet::GetHealthAttribute(), CurrentHP - Damage);
+    PS->GetAbilitySystemComponent()->SetNumericAttributeBase(UBWSCharacterAttributeSet::GetHealthAttribute(), CurrentHP - Damage);
 }
 
 void ABWSPlayerCharacter::Test_AddGold(float MoneyToAdd)
@@ -49,9 +50,9 @@ void ABWSPlayerCharacter::Test_AddGold(float MoneyToAdd)
     ABWSPlayerState* const PS = Cast<ABWSPlayerState>(GetPlayerState());
     if (!PS) return;
 
-    float CurrentMoney = UBWSAttributeSet::GetMoneyAttribute().GetNumericValue(PS->GetAttributeSet());
+    float CurrentMoney = UBWSCharacterAttributeSet::GetMoneyAttribute().GetNumericValue(PS->GetAttributeSet());
 
-    PS->GetAbilitySystemComponent()->SetNumericAttributeBase(UBWSAttributeSet::GetMoneyAttribute(), CurrentMoney + MoneyToAdd);
+    PS->GetAbilitySystemComponent()->SetNumericAttributeBase(UBWSCharacterAttributeSet::GetMoneyAttribute(), CurrentMoney + MoneyToAdd);
 }
 
 void ABWSPlayerCharacter::BeginPlay()

@@ -3,6 +3,7 @@
 
 #include "Core/BWSPlayerState.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
+#include "GameplayAbilitySystem/AttributeSet/BWSCharacterAttributeSet.h"
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
 
 ABWSPlayerState::ABWSPlayerState()
@@ -18,5 +19,5 @@ UAbilitySystemComponent* ABWSPlayerState::GetAbilitySystemComponent() const
 void ABWSPlayerState::InitializeComponents()
 {
     AbilitySystemComponent = CreateDefaultSubobject<UBWSAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-    AttributeSet = CreateDefaultSubobject<UBWSAttributeSet>(TEXT("AttributeSet"));
+    AttributeSet = CreateDefaultSubobject<UBWSCharacterAttributeSet>(TEXT("AttributeSet"));
 }

@@ -3,38 +3,39 @@
 
 #include "UI/WidgetController/BWSOverlayWidgetController.h"
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
+#include "GameplayAbilitySystem/AttributeSet/BWSCharacterAttributeSet.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "UI/Widgets/BWSUserWidget.h"
 
 void UBWSOverlayWidgetController::BroadcastInitialValues()
 {
-    UBWSAttributeSet* const BWSAttributeSet = Cast<UBWSAttributeSet>(AttributeSet);
-    if (!BWSAttributeSet) return;
+    UBWSCharacterAttributeSet* const BWSCharacterAttributeSet = Cast<UBWSCharacterAttributeSet>(AttributeSet);
+    if (!BWSCharacterAttributeSet) return;
 
-    OnHealthChanged.Broadcast(BWSAttributeSet->GetHealth());
-    OnMaxHealthChanged.Broadcast(BWSAttributeSet->GetMaxHealth());
-    OnMoneyChanged.Broadcast(BWSAttributeSet->GetMoney());
+    OnHealthChanged.Broadcast(BWSCharacterAttributeSet->GetHealth());
+    OnMaxHealthChanged.Broadcast(BWSCharacterAttributeSet->GetMaxHealth());
+    OnMoneyChanged.Broadcast(BWSCharacterAttributeSet->GetMoney());
 }
 
 void UBWSOverlayWidgetController::BindCallbacksToDependencies()
 {
-    UBWSAttributeSet* const BWSAttributeSet = Cast<UBWSAttributeSet>(AttributeSet);
-    if (!BWSAttributeSet) return;
+    UBWSCharacterAttributeSet* const BWSCharacterAttributeSet = Cast<UBWSCharacterAttributeSet>(AttributeSet);
+    if (!BWSCharacterAttributeSet) return;
    
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-        BWSAttributeSet->GetHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+        BWSCharacterAttributeSet->GetHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
             {
                 OnHealthChanged.Broadcast(Data.NewValue);
             });
 
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-        BWSAttributeSet->GetMaxHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+        BWSCharacterAttributeSet->GetMaxHealthAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
             {
                 OnMaxHealthChanged.Broadcast(Data.NewValue);
             });
 
     AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
-        BWSAttributeSet->GetMoneyAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
+        BWSCharacterAttributeSet->GetMoneyAttribute()).AddLambda([this](const FOnAttributeChangeData& Data)
             {
                 OnMoneyChanged.Broadcast(Data.NewValue);
             });

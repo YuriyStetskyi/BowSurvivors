@@ -58,25 +58,11 @@ class BOWSURVIVORS_API UBWSAttributeSet : public UAttributeSet
 	GENERATED_BODY()
 
 public:
+    UBWSAttributeSet();
     UBWSAttributeSet(const FObjectInitializer& ObjectInitializer);
 
     virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
     virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
-
-    /* Health property. Represents actors current Health amount */
-    UPROPERTY(BlueprintReadOnly, Category = "Vitals")
-    FGameplayAttributeData Health;
-    ATTRIBUTE_ACCESSORS(UBWSAttributeSet, Health);
-
-    /* Max Health property. Represents actors max Health amount */
-    UPROPERTY(BlueprintReadOnly, Category = "Vitals")
-    FGameplayAttributeData MaxHealth;
-    ATTRIBUTE_ACCESSORS(UBWSAttributeSet, MaxHealth);
-
-    /* Money property. Represents actors current money amount */
-    UPROPERTY(BlueprintReadOnly, Category = "Vitals")
-    FGameplayAttributeData Money;
-    ATTRIBUTE_ACCESSORS(UBWSAttributeSet, Money);
 
 private:
     void SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const;

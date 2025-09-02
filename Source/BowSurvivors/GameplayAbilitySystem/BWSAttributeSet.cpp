@@ -6,32 +6,18 @@
 #include "GameFramework/Character.h"
 #include "AbilitySystemBlueprintLibrary.h"
 
+UBWSAttributeSet::UBWSAttributeSet()
+{
+}
+
 UBWSAttributeSet::UBWSAttributeSet(const FObjectInitializer& ObjectInitializer)
 {
-    InitHealth(30.0f);
-    InitMaxHealth(100.0f);
-    InitMoney(500.0f);
+
 }
 
 void UBWSAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
 {
     Super::PreAttributeChange(Attribute, NewValue);
-
-    if (Attribute == GetHealthAttribute())
-    {
-        NewValue = FMath::Clamp(NewValue, 0.0f, GetMaxHealth());
-    }
-
-    if (Attribute == GetMaxHealthAttribute())
-    {
-        NewValue = FMath::Max(NewValue, 0.0f);
-    }
-
-    if (Attribute == GetMoneyAttribute())
-    {
-        NewValue = FMath::Max(NewValue, 0.0f);
-    }
-
 }
 
 void UBWSAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data)
@@ -40,11 +26,6 @@ void UBWSAttributeSet::PostGameplayEffectExecute(const FGameplayEffectModCallbac
 
     FEffectProperties Props;
     SetEffectProperties(Data, Props);
-
-    if (Data.EvaluatedData.Attribute == GetHealthAttribute())
-    {
-        SetHealth(FMath::Clamp(GetHealth(), 0, GetMaxHealth()));
-    }
 }
 
 void UBWSAttributeSet::SetEffectProperties(const FGameplayEffectModCallbackData& Data, FEffectProperties& Props) const

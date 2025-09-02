@@ -7,7 +7,7 @@
 #include "BWSWeaponAttributeSet.generated.h"
 
 /**
- * 
+ * Attribute Set for Weapons Attributes
  */
 UCLASS()
 class BOWSURVIVORS_API UBWSWeaponAttributeSet : public UBWSAttributeSet

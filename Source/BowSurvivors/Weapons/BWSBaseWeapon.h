@@ -3,20 +3,27 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AbilitySystemInterface.h"
 #include "GameFramework/Actor.h"
 #include "BWSBaseWeapon.generated.h"
+
+class UAbilitySystemComponent;
+class UAttributeSet;
+class UGameplayEffect;
 
 /**
  *  Base Weapon class. Stores all weapon data and logic.
  */
 UCLASS()
-class BOWSURVIVORS_API ABWSBaseWeapon : public AActor
+class BOWSURVIVORS_API ABWSBaseWeapon : public AActor, public IAbilitySystemInterface
 {
     GENERATED_BODY()
 
 public:
     // Sets default values for this actor's properties
     ABWSBaseWeapon();
+
+    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
 
     // Called every frame
     virtual void Tick(float DeltaTime) override;
@@ -34,8 +41,25 @@ public:
     FORCEINLINE UStaticMeshComponent* GetMesh() { return StaticMeshComponent; }
 
 protected:
+    /* Ability System Component - main part of Gameplay Ability System */
+    UPROPERTY(EditDefaultsOnly, Category = "Components | GAS")
+    UAbilitySystemComponent* AbilitySystemComponent;
+
+    /* Attribute set - stores all values (attributes) connected to Gameplay Ability System */
+    UPROPERTY(EditDefaultsOnly, Category = "Components | GAS")
+    UAttributeSet* AttributeSet;
 
     /* Weapons Static Mesh */
     UPROPERTY(EditDefaultsOnly, Category = "Components")
     UStaticMeshComponent* StaticMeshComponent;
+
+private:
+    void InitializeComponents();
+
+    void InitializeAbilityActorInfo();
+
+    void InitializeDefaultAttributes();
+
+    void GenerateAttributes();
+
 };

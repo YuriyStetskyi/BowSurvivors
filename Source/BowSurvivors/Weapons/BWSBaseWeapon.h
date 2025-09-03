@@ -53,6 +53,15 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Components")
     UStaticMeshComponent* StaticMeshComponent;
 
+    UPROPERTY(EditDefaultsOnly, Category = "Attributes")
+    TSubclassOf<UGameplayEffect> DefaultCoreWeaponAttributesInitializerEffect;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Attributes")
+    TSubclassOf<UGameplayEffect> DefaultDerivedWeaponAttributesInitializerEffect;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Attributes")
+    TSubclassOf<UGameplayEffect> DefaultWeaponScoreAttributesInitializerEffect;
+
 private:
     void InitializeComponents();
 
@@ -61,5 +70,7 @@ private:
     void InitializeDefaultAttributes();
 
     void GenerateAttributes();
+
+    void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level);
 
 };

@@ -33,6 +33,18 @@ void ABWSBaseWeapon::Attack()
 
 }
 
+void ABWSBaseWeapon::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level)
+{
+    UAbilitySystemComponent* const ASC = GetAbilitySystemComponent();
+    check(IsValid(ASC));
+
+    check(GameplayEffectClass);
+
+    const FGameplayEffectContextHandle EffectContext = ASC->MakeEffectContext();
+    const FGameplayEffectSpecHandle EffectSpecHandle = ASC->MakeOutgoingSpec(GameplayEffectClass, Level, EffectContext);
+    ASC->ApplyGameplayEffectSpecToTarget(*EffectSpecHandle.Data.Get(), ASC);
+}
+
 void ABWSBaseWeapon::InitializeComponents()
 {
     StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
@@ -66,7 +78,9 @@ void ABWSBaseWeapon::InitializeDefaultAttributes()
 
 void ABWSBaseWeapon::GenerateAttributes()
 {
-
+    ApplyEffectToSelf(DefaultCoreWeaponAttributesInitializerEffect, 1.0f);
+    ApplyEffectToSelf(DefaultDerivedWeaponAttributesInitializerEffect, 1.0f);
+    ApplyEffectToSelf(DefaultWeaponScoreAttributesInitializerEffect, 1.0f);
 }
 
 // Called every frame

@@ -41,6 +41,9 @@ public:
     UFUNCTION(BlueprintCallable)
     void Test_AddGold(float MoneyToAdd);
 
+    UFUNCTION(BlueprintCallable)
+    void Test_DisplayWeaponStats();
+
     int32 GetCurrentLevel();
 
 protected:

@@ -25,6 +25,7 @@ public:
     ABWSBaseWeapon();
 
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
+    UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
     // Called every frame
     virtual void Tick(float DeltaTime) override;

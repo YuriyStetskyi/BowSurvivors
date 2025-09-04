@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
+#include "Interaction/BWSCombatInterface.h"
 #include "GameFramework/PlayerState.h"
 #include "BWSPlayerState.generated.h"
 
@@ -14,7 +15,7 @@ class UAttributeSet;
  *  Default Player state class
  */
 UCLASS()
-class BOWSURVIVORS_API ABWSPlayerState : public APlayerState, public IAbilitySystemInterface
+class BOWSURVIVORS_API ABWSPlayerState : public APlayerState, public IAbilitySystemInterface, public IBWSCombatInterface
 {
 	GENERATED_BODY()
 	
@@ -23,6 +24,8 @@ public:
 
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
     UAttributeSet* GetAttributeSet() const { return AttributeSet; }
+
+    virtual int32 GetCurrentLevel() override { return PlayerLevel; }
 
 protected:
     /* Ability System Component - main part of Gameplay Ability System */
@@ -37,4 +40,6 @@ private:
     /* Method that initializes all of the actors components */
     void InitializeComponents();
 
+    UPROPERTY(VisibleAnywhere)
+    int32 PlayerLevel;
 };

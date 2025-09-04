@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Interaction/BWSCombatInterface.h"
 #include "Characters/BWSBaseCharacter.h"
 #include "BWSEnemyCharacter.generated.h"
 
@@ -10,7 +11,7 @@
  *  Enemy Character class. Inherits ABWSBaseCharacter. Represents all enemies in the game.
  */
 UCLASS()
-class BOWSURVIVORS_API ABWSEnemyCharacter : public ABWSBaseCharacter
+class BOWSURVIVORS_API ABWSEnemyCharacter : public ABWSBaseCharacter, public IBWSCombatInterface
 {
 	GENERATED_BODY()
 	
@@ -22,8 +23,11 @@ protected:
 
     virtual void InitializeAbilityActorInfo() override;
 
+    virtual int32 GetCurrentLevel() override { return EnemyLevel; }
 private:
     /* Method that initializes all of the actors components */
     void InitializeComponents();
 
+    UPROPERTY(VisibleAnywhere)
+    int32 EnemyLevel;
 };

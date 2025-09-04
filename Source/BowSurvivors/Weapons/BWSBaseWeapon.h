@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Interaction/BWSCombatInterface.h"
 #include "AbilitySystemInterface.h"
 #include "GameFramework/Actor.h"
 #include "BWSBaseWeapon.generated.h"
@@ -15,7 +16,7 @@ class UGameplayEffect;
  *  Base Weapon class. Stores all weapon data and logic.
  */
 UCLASS()
-class BOWSURVIVORS_API ABWSBaseWeapon : public AActor, public IAbilitySystemInterface
+class BOWSURVIVORS_API ABWSBaseWeapon : public AActor, public IAbilitySystemInterface, public IBWSCombatInterface
 {
     GENERATED_BODY()
 
@@ -36,6 +37,8 @@ public:
         Logic is overriden in more concrete weapon types - thus different for different wepaons
     */
     virtual void Attack();
+
+    virtual int32 GetCurrentLevel() override { return WeaponLevel; }
 
     /* Retuns Weapon Static mesh (might be skeletal in the future) */
     FORCEINLINE UStaticMeshComponent* GetMesh() { return StaticMeshComponent; }
@@ -72,5 +75,8 @@ private:
     void GenerateAttributes();
 
     void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level);
+
+    UPROPERTY(VisibleAnywhere)
+    int32 WeaponLevel;
 
 };

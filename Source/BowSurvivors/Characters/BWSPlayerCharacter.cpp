@@ -55,6 +55,14 @@ void ABWSPlayerCharacter::Test_AddGold(float MoneyToAdd)
     PS->GetAbilitySystemComponent()->SetNumericAttributeBase(UBWSCharacterAttributeSet::GetMoneyAttribute(), CurrentMoney + MoneyToAdd);
 }
 
+int32 ABWSPlayerCharacter::GetCurrentLevel()
+{
+    ABWSPlayerState* const BWSPlayerState = GetPlayerState<ABWSPlayerState>();
+    if (!BWSPlayerState) return 0;
+
+    return BWSPlayerState->GetCurrentLevel();
+}
+
 void ABWSPlayerCharacter::BeginPlay()
 {
     Super::BeginPlay();

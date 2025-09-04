@@ -6,6 +6,7 @@
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
 
 ABWSEnemyCharacter::ABWSEnemyCharacter()
+    : EnemyLevel(1)
 {
     InitializeComponents();
 }

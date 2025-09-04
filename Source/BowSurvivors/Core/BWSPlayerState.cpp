@@ -7,6 +7,7 @@
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
 
 ABWSPlayerState::ABWSPlayerState()
+    : PlayerLevel(1)
 {
     InitializeComponents();
 }

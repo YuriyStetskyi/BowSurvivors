@@ -50,6 +50,6 @@ float UBWSMMCDPS::CalculateBaseMagnitude_Implementation(const FGameplayEffectSpe
     CombatInterface->GetCurrentLevel();
     */
 
-    return Damage * FireRate * ProjectilesCount;
-
+    float DPS = Damage * FireRate * ProjectilesCount;
+    return DPS;
 }

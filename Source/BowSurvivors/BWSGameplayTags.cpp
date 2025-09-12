@@ -8,6 +8,9 @@ FBWSGameplayTags FBWSGameplayTags::GameplayTags;
 
 void FBWSGameplayTags::InitializeNativeGameplayTags()
 {
-    GameplayTags.Attributes_Weapon_Test_Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Weapon.Test.Damage"), FString("Testing native gameplay tag damage"));
+    GameplayTags.Attributes_Weapon_Power_Damage = UGameplayTagsManager::Get().AddNativeGameplayTag(FName("Attributes.Weapon.Power.Damage"), FString("Testing native gameplay tag damage"));
+
+
+
 }
  

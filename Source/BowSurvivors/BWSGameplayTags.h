@@ -16,6 +16,24 @@ public:
 
     static void InitializeNativeGameplayTags();
 
+    /*
+    *   Character Attributes
+    */
+
+    FGameplayTag Attributes_Character_Combat_Health;
+    FGameplayTag Attributes_Character_Combat_MaxHealth;
+    FGameplayTag Attributes_Character_Combat_MovementSpeed;
+    FGameplayTag Attributes_Character_Combat_Dashes;
+    FGameplayTag Attributes_Character_Combat_MaxDashes;
+
+    FGameplayTag Attributes_Character_Economy_EXP;
+    FGameplayTag Attributes_Character_Economy_NextLvlEXP;
+    FGameplayTag Attributes_Character_Economy_Gold;
+
+    /*
+    *   Weapon Attributes
+    */
+
     FGameplayTag Attributes_Weapon_Power_Damage;
     FGameplayTag Attributes_Weapon_Power_FireRate;
     FGameplayTag Attributes_Weapon_Power_Projectiles;

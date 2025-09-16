@@ -11,6 +11,8 @@ class UInputAction;
 class ABWSPlayerCharacter;
 class UEnhancedInputComponent;
 
+DECLARE_MULTICAST_DELEGATE(FOnWeaponStatsShow);
+
 /**
  *  Default controller of player.
  */
@@ -24,6 +26,8 @@ public:
 
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaTime) override;
+
+    FOnWeaponStatsShow OnWeaponStatsShow;
 
 protected:
     /* Called when controller possesses a pawn */
@@ -45,6 +49,10 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Input")
     UInputAction* ActionShoot;
 
+    /* Input action responsible for showing weapon stats */
+    UPROPERTY(EditDefaultsOnly, Category = "Input")
+    UInputAction* ActionShowWeaponStats;
+
     /* Crosshair to be used in game */
     UPROPERTY(EditDefaultsOnly, Category = "UI")
     UUserWidget* CrosshairWidget;
@@ -62,6 +70,8 @@ private:
 
     /* Set up all the cursor settings to work properly in game */
     void SetupCursor();
+
+    void ShowWeaponStats();
 
 #pragma region Mouse
 

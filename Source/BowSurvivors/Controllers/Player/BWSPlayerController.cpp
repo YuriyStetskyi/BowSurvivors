@@ -65,6 +65,7 @@ void ABWSPlayerController::SetupInputActions(APawn* ControlledPawn)
 
     EnhancedInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Move);
     EnhancedInputComponent->BindAction(ActionShoot, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Shoot);
+    EnhancedInputComponent->BindAction(ActionShowWeaponStats, ETriggerEvent::Triggered, this, &ABWSPlayerController::ShowWeaponStats);
 }
 
 void ABWSPlayerController::SetupCursor()
@@ -76,6 +77,12 @@ void ABWSPlayerController::SetupCursor()
     SetInputMode(InputMode);
     SetMouseCursorWidget(EMouseCursor::Type::Crosshairs, CrosshairWidget);
     CurrentMouseCursor = EMouseCursor::Type::Crosshairs;
+}
+
+void ABWSPlayerController::ShowWeaponStats()
+{
+    // Currently only UI animation played, which is executed in BP.
+    OnWeaponStatsShow.Broadcast();
 }
 
 FVector ABWSPlayerController::FindProjectedMouseLocation(ECollisionChannel ProjectionCollisionChannel)

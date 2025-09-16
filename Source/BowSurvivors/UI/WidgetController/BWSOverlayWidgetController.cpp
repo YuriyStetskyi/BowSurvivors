@@ -6,6 +6,7 @@
 #include "GameplayAbilitySystem/AttributeSet/BWSCharacterAttributeSet.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "UI/Widgets/BWSUserWidget.h"
+#include "Controllers/Player/BWSPlayerController.h"
 
 void UBWSOverlayWidgetController::BroadcastInitialValues()
 {
@@ -54,5 +55,12 @@ void UBWSOverlayWidgetController::BindCallbacksToDependencies()
                 if (!Row) continue;
                 MessageWidgetRowDelegate.Broadcast(*Row);
             }
+        });
+
+    ABWSPlayerController* const BWSPlayerController = Cast<ABWSPlayerController>(PlayerController);
+    if (!BWSPlayerController) return;
+    BWSPlayerController->OnWeaponStatsShow.AddLambda([this]()
+        {
+            WeaponStatsAnimationPlayed.Broadcast();
         });
 }

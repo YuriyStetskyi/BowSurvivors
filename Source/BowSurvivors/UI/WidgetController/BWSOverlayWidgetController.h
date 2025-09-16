@@ -33,6 +33,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnAttributeChangedSignature, float,
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMessageWidgetRowSignature, FUIWidgetRow, Row);
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnOverlayAnimationPlayed);
+
 /**
  *  Overlay Widget Controller class. Controls OverlayWidget.
  */
@@ -62,6 +64,10 @@ public:
 
     UPROPERTY(BlueprintAssignable, Category = "GAS | Messages")
     FMessageWidgetRowSignature MessageWidgetRowDelegate;
+
+    UPROPERTY(BlueprintAssignable, Category = "UI | Animations")
+    FOnOverlayAnimationPlayed WeaponStatsAnimationPlayed;
+
 
 protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")

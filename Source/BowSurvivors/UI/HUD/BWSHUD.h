@@ -28,9 +28,10 @@ public:
     /* Method called when Overlay is initialized. Created to be used instead of BeginPlay for better timing control. */
     void InitOverlay(APlayerController* const PC, APlayerState* const PS, UAbilitySystemComponent* ASC, UAttributeSet* const AS);
 
-protected:
     /* Method that either creates or returns created Overlay Widget Controller. */
     UBWSOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
+
+protected:
 
 private:
     /* Type of overlay widget to be created. */

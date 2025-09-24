@@ -3,3 +3,12 @@
 
 #include "UI/WidgetController/BWSWeaponStatsWidgetController.h"
 
+void UBWSWeaponStatsWidgetController::BroadcastInitialValues()
+{
+
+}
+
+void UBWSWeaponStatsWidgetController::BindCallbacksToDependencies()
+{
+
+}

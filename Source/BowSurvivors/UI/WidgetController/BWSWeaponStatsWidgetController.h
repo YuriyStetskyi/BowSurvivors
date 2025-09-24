@@ -14,4 +14,9 @@ class BOWSURVIVORS_API UBWSWeaponStatsWidgetController : public UBWSWidgetContro
 {
 	GENERATED_BODY()
 	
+public:
+
+    virtual void BroadcastInitialValues() override;
+
+    virtual void BindCallbacksToDependencies() override;
 };

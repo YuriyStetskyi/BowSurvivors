@@ -10,5 +10,5 @@ void UBWSWeaponStatsWidgetController::BroadcastInitialValues()
 
 void UBWSWeaponStatsWidgetController::BindCallbacksToDependencies()
 {
-
+    
 }

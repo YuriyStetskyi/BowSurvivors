@@ -8,6 +8,7 @@
 
 class UBWSUserWidget;
 class UBWSOverlayWidgetController;
+class UBWSWeaponStatsWidgetController;
 class UAbilitySystemComponent;
 class UAttributeSet;
 
@@ -30,6 +31,7 @@ public:
 
     /* Method that either creates or returns created Overlay Widget Controller. */
     UBWSOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
+    UBWSWeaponStatsWidgetController* GetWeaponStatsWidgetController(const FWidgetControllerParams& WCParams);
 
 protected:
 
@@ -45,4 +47,10 @@ private:
     /* Type of overlay Widget Controller to be created. */
     UPROPERTY(EditAnywhere)
     TSubclassOf<UBWSOverlayWidgetController> OverlayWidgetControllerClass;
+
+    UPROPERTY()
+    UBWSWeaponStatsWidgetController* WeaponStatsWidgetController;
+
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<UBWSWeaponStatsWidgetController> WeaponStatsWidgetControllerClass;
 };

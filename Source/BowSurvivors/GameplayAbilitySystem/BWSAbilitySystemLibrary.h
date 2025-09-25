@@ -7,6 +7,7 @@
 #include "BWSAbilitySystemLibrary.generated.h"
 
 class UBWSOverlayWidgetController;
+class UBWSWeaponStatsWidgetController;
 
 /**
  * 
@@ -20,5 +21,8 @@ public:
 
     UFUNCTION(BlueprintPure)
     static UBWSOverlayWidgetController* GetOverlayWidgetController(const UObject* WorldContextObject);
+
+    UFUNCTION(BlueprintPure)
+    static UBWSWeaponStatsWidgetController* GetWeaponStatsWidgetController(const UObject* WorldContextObject);
 
 };

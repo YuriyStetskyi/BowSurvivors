@@ -9,7 +9,7 @@
 /**
  * 
  */
-UCLASS()
+UCLASS(BlueprintType, Blueprintable)
 class BOWSURVIVORS_API UBWSWeaponStatsWidgetController : public UBWSWidgetController
 {
 	GENERATED_BODY()

@@ -3,6 +3,7 @@
 
 #include "GameplayAbilitySystem/BWSAbilitySystemLibrary.h"
 #include "UI/WidgetController/BWSOverlayWidgetController.h"
+#include "UI/WidgetController/BWSWeaponStatsWidgetController.h"
 #include "Controllers/Player/BWSPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Core/BWSPlayerState.h"
@@ -27,4 +28,24 @@ UBWSOverlayWidgetController* UBWSAbilitySystemLibrary::GetOverlayWidgetControlle
     if (!AS) return nullptr;
 
     return BWSHUD->GetOverlayWidgetController(FWidgetControllerParams(PC, PS, ASC, AS));
+}
+
+UBWSWeaponStatsWidgetController* UBWSAbilitySystemLibrary::GetWeaponStatsWidgetController(const UObject* WorldContextObject)
+{
+    APlayerController* const PC = UGameplayStatics::GetPlayerController(WorldContextObject, 0);
+    if (!PC) return nullptr;
+
+    ABWSHUD* const BWSHUD = Cast<ABWSHUD>(PC->GetHUD());
+    if (!BWSHUD) return nullptr;
+
+    ABWSPlayerState* const PS = PC->GetPlayerState<ABWSPlayerState>();
+    if (!PS) return nullptr;
+
+    UAbilitySystemComponent* const ASC = PS->GetAbilitySystemComponent();
+    if (!ASC) return nullptr;
+
+    UAttributeSet* const AS = PS->GetAttributeSet();
+    if (!AS) return nullptr;
+
+    return BWSHUD->GetWeaponStatsWidgetController(FWidgetControllerParams(PC, PS, ASC, AS));
 }

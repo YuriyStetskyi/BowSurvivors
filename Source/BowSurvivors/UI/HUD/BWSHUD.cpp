@@ -4,7 +4,6 @@
 #include "UI/HUD/BWSHUD.h"
 #include "UI/Widgets/BWSUserWidget.h"
 #include "UI/WidgetController/BWSOverlayWidgetController.h"
-#include "UI/WidgetController/BWSWeaponStatsWidgetController.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
 
@@ -41,16 +40,4 @@ UBWSOverlayWidgetController* ABWSHUD::GetOverlayWidgetController(const FWidgetCo
     }
 
     return OverlayWidgetController;
-}
-
-UBWSWeaponStatsWidgetController* ABWSHUD::GetWeaponStatsWidgetController(const FWidgetControllerParams& WCParams)
-{
-    if (!WeaponStatsWidgetController)
-    {
-        WeaponStatsWidgetController = NewObject<UBWSWeaponStatsWidgetController>(this, WeaponStatsWidgetControllerClass);
-        WeaponStatsWidgetController->SetWidgetControllerParams(WCParams);
-        WeaponStatsWidgetController->BindCallbacksToDependencies();
-    }
-
-    return WeaponStatsWidgetController;
 }

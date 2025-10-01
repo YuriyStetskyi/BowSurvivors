@@ -53,6 +53,29 @@ void UBWSWeaponComponent::HolsterWeapon(ABWSBaseWeapon* const Weapon)
     WeaponMesh->SetVisibility(false);
 }
 
+ABWSBaseWeapon* const UBWSWeaponComponent::GetWeapon(EWeaponSlot Slot)
+{
+    switch (Slot)
+    {
+    case EWeaponSlot::FisrtWeapon:
+    {
+        return FirstWeapon;
+    }
+    case EWeaponSlot::SecondWeapon:
+    {
+        return SecondWeapon;
+    }
+    case EWeaponSlot::ThirdWeaon:
+        break;
+    case EWeaponSlot::None:
+        break;
+    default:
+        break;
+    }
+
+    return nullptr;
+}
+
 void UBWSWeaponComponent::EquipWeaponSlot(EWeaponSlot WeaponToEquip)
 {
     switch (WeaponToEquip)
@@ -109,6 +132,7 @@ void UBWSWeaponComponent::SpawnWeapons()
         if (SecondWeapon) SecondWeapon->AttachToActor(Owner, FAttachmentTransformRules::KeepWorldTransform);
     }
 
+    OnWeaponsSpawned.Broadcast();
 }
 
 // Called every frame

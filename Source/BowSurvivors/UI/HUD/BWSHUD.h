@@ -8,11 +8,13 @@
 
 class UBWSUserWidget;
 class UBWSOverlayWidgetController;
-class UBWSWeaponStatsWidgetController;
+class UBWSWeaponWidgetController;
 class UAbilitySystemComponent;
 class UAttributeSet;
 
 struct FWidgetControllerParams;
+
+enum class EWeaponSlot : uint8;
 
 /**
  *  Main HUD class.
@@ -32,6 +34,9 @@ public:
     /* Method that either creates or returns created Overlay Widget Controller. */
     UBWSOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
 
+    UBWSWeaponWidgetController* GetWeaponWidgetController(const FWidgetControllerParams& WCParams, EWeaponSlot WeaponSlot);
+
+
 protected:
 
 private:
@@ -46,4 +51,13 @@ private:
     /* Type of overlay Widget Controller to be created. */
     UPROPERTY(EditAnywhere)
     TSubclassOf<UBWSOverlayWidgetController> OverlayWidgetControllerClass;
+
+    UPROPERTY()
+    UBWSWeaponWidgetController* FirstWeaponWidgetController;
+
+    UPROPERTY()
+    UBWSWeaponWidgetController* SecondWeaponWidgetController;
+
+    UPROPERTY(EditAnywhere)
+    TSubclassOf<UBWSWeaponWidgetController> WeaponWidgetControllerClass;
 };

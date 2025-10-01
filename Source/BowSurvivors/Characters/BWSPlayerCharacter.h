@@ -32,6 +32,7 @@ public:
     /* Getters */
     FORCEINLINE USpringArmComponent* const GetSpringArmComponen() { return SpringArmComponent; }
     FORCEINLINE UCameraComponent* const GetCameraComponent() { return CameraComponent; }
+    FORCEINLINE UBWSWeaponComponent* const GetWeaponComponent() { return WeaponComponent; }
 
     /* PURE DEBUG FUNCTION SHOULD BE REMOVED LATER*/
     UFUNCTION(BlueprintCallable)

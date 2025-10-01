@@ -4,8 +4,10 @@
 #include "UI/HUD/BWSHUD.h"
 #include "UI/Widgets/BWSUserWidget.h"
 #include "UI/WidgetController/BWSOverlayWidgetController.h"
+#include "UI/WidgetController/BWSWeaponWidgetController.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
+#include "Components/BWSWeaponComponent.h"
 
 void ABWSHUD::InitOverlay(APlayerController* const PC, APlayerState* const PS, UAbilitySystemComponent* ASC, UAttributeSet* const AS)
 {
@@ -40,4 +42,39 @@ UBWSOverlayWidgetController* ABWSHUD::GetOverlayWidgetController(const FWidgetCo
     }
 
     return OverlayWidgetController;
+}
+
+UBWSWeaponWidgetController* ABWSHUD::GetWeaponWidgetController(const FWidgetControllerParams& WCParams, EWeaponSlot WeaponSlot)
+{
+    switch (WeaponSlot)
+    {
+    case EWeaponSlot::FisrtWeapon:
+    {
+        if (!FirstWeaponWidgetController)
+        {
+            FirstWeaponWidgetController = NewObject<UBWSWeaponWidgetController>(this, WeaponWidgetControllerClass);
+            FirstWeaponWidgetController->SetWidgetControllerParams(WCParams);
+            FirstWeaponWidgetController->BindCallbacksToDependencies();
+        }
+        return FirstWeaponWidgetController;
+    }
+    case EWeaponSlot::SecondWeapon:
+    {
+        if (!SecondWeaponWidgetController)
+        {
+            SecondWeaponWidgetController = NewObject<UBWSWeaponWidgetController>(this, WeaponWidgetControllerClass);
+            SecondWeaponWidgetController->SetWidgetControllerParams(WCParams);
+            SecondWeaponWidgetController->BindCallbacksToDependencies();
+        }
+        return SecondWeaponWidgetController;
+    }
+    case EWeaponSlot::ThirdWeaon: //maybe in the future as an upgrade or something
+        break;
+    case EWeaponSlot::None:
+        break;
+    default:
+        break;
+    }
+
+    return nullptr;
 }

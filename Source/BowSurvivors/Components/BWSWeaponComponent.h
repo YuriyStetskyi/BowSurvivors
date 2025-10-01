@@ -6,11 +6,15 @@
 #include "Components/ActorComponent.h"
 #include "BWSWeaponComponent.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWeaponsSpawnedSignature);
+
 UENUM(BlueprintType)
 enum class EWeaponSlot : uint8
 {
     FisrtWeapon,
-    SecondWeapon
+    SecondWeapon,
+    ThirdWeaon,
+    None
 };
 
 class ABWSBaseWeapon;
@@ -45,6 +49,11 @@ public:
 
     /* Unequips specified weapon */
     void HolsterWeapon(ABWSBaseWeapon* const Weapon);
+
+    ABWSBaseWeapon* const GetWeapon(EWeaponSlot Slot);
+
+    UPROPERTY(BlueprintAssignable)
+    FOnWeaponsSpawnedSignature OnWeaponsSpawned;
 
 protected:
     /* Default BP that first weapon will be set to */

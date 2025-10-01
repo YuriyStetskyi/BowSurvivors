@@ -7,7 +7,10 @@
 #include "BWSAbilitySystemLibrary.generated.h"
 
 class UBWSOverlayWidgetController;
-class UBWSWeaponStatsWidgetController;
+class UBWSWeaponWidgetController;
+class UBWSWeaponComponent;
+
+enum class EWeaponSlot : uint8;
 
 /**
  * 
@@ -21,4 +24,10 @@ public:
 
     UFUNCTION(BlueprintPure)
     static UBWSOverlayWidgetController* GetOverlayWidgetController(const UObject* WorldContextObject);
+
+    UFUNCTION(BlueprintPure)
+    static UBWSWeaponWidgetController* GetWeaponWidgetController(const UObject* WorldContextObject, EWeaponSlot WeaponSlot);
+
+    UFUNCTION(BlueprintPure)
+    static UBWSWeaponComponent* GetPlayerWeaponComponnt(const UObject* WorldContextObject);
 };

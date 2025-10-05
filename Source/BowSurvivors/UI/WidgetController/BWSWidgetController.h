@@ -53,6 +53,7 @@ public:
         Should be called one time after initializing starting values of attributes.
         Should be overriden in inherited classes.
     */
+    UFUNCTION(BlueprintCallable)
     virtual void BroadcastInitialValues();
 
     /*  

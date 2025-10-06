@@ -10,7 +10,7 @@ class UBWSWeaponAttributeInfo;
 
 struct FWeaponAttributeInfo;
 
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWeaponAttributeChanged, const FWeaponAttributeInfo& , Info);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWeaponAttributeChangedSignature, const FWeaponAttributeInfo& , Info);
 
 /**
  * 
@@ -23,7 +23,7 @@ class BOWSURVIVORS_API UBWSWeaponWidgetController : public UBWSWidgetController
 public:
 
     UPROPERTY(BlueprintAssignable)
-    FOnWeaponAttributeChanged OnDamageChanged;
+    FOnWeaponAttributeChangedSignature OnWeaponAttributeChanged;
 
     virtual void BroadcastInitialValues() override;
 

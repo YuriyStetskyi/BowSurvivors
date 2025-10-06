@@ -15,7 +15,7 @@ void UBWSWeaponWidgetController::BroadcastInitialValues()
 
     FWeaponAttributeInfo Info = WeaponAttributeInfo->FindAttributeInfoForTag(FBWSGameplayTags::Get().Attributes_Weapon_Power_Damage);
     Info.AttributeValue = WeaponAS->GetDamage();
-    OnDamageChanged.Broadcast(Info);
+    OnWeaponAttributeChanged.Broadcast(Info);
 }
 
 void UBWSWeaponWidgetController::BindCallbacksToDependencies()

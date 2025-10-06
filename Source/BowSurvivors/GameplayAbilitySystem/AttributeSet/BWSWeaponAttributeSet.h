@@ -6,6 +6,10 @@
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
 #include "BWSWeaponAttributeSet.generated.h"
 
+template<class T>
+using TStaticFuncPtr = typename TBaseStaticDelegateInstance<T, FDefaultDelegateUserPolicy>::FFuncPtr;
+
+
 /**
  * Attribute Set for Weapons Attributes
  */
@@ -73,5 +77,7 @@ public:
     FGameplayAttributeData WeaponScore;
     ATTRIBUTE_ACCESSORS(UBWSWeaponAttributeSet, WeaponScore);
 
+
+    TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
 
 };

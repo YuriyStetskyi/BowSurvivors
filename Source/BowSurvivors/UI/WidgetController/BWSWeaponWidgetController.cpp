@@ -13,9 +13,12 @@ void UBWSWeaponWidgetController::BroadcastInitialValues()
 
     check(WeaponAttributeInfo);
 
-    FWeaponAttributeInfo Info = WeaponAttributeInfo->FindAttributeInfoForTag(FBWSGameplayTags::Get().Attributes_Weapon_Power_Damage);
-    Info.AttributeValue = WeaponAS->GetDamage();
-    OnWeaponAttributeChanged.Broadcast(Info);
+    for (TPair<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> Pair : WeaponAS->TagsToAttributes)
+    {
+        FWeaponAttributeInfo Info = WeaponAttributeInfo->FindAttributeInfoForTag(Pair.Key);
+        Info.AttributeValue = Pair.Value().GetNumericValue(WeaponAS);
+        OnWeaponAttributeChanged.Broadcast(Info);
+    }
 }
 
 void UBWSWeaponWidgetController::BindCallbacksToDependencies()

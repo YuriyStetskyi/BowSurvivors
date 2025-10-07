@@ -23,5 +23,17 @@ void UBWSWeaponWidgetController::BroadcastInitialValues()
 
 void UBWSWeaponWidgetController::BindCallbacksToDependencies()
 {
+    UBWSWeaponAttributeSet* const WeaponAS = Cast<UBWSWeaponAttributeSet>(AttributeSet);
+    if (!WeaponAS) return;
 
+    for (TPair<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>>& Pair : WeaponAS->TagsToAttributes)
+    {
+        AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(Pair.Value()).AddLambda(
+            [this, Pair, WeaponAS] (const FOnAttributeChangeData& Data)
+            {
+                FWeaponAttributeInfo Info = WeaponAttributeInfo->FindAttributeInfoForTag(Pair.Key);
+                Info.AttributeValue = Pair.Value().GetNumericValue(WeaponAS);
+                OnWeaponAttributeChanged.Broadcast(Info);
+            });
+    }
 }

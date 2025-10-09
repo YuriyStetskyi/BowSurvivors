@@ -50,6 +50,7 @@ public:
     /* Unequips specified weapon */
     void HolsterWeapon(ABWSBaseWeapon* const Weapon);
 
+    UFUNCTION(BlueprintCallable)
     ABWSBaseWeapon* const GetWeapon(EWeaponSlot Slot);
 
     UPROPERTY(BlueprintAssignable)

@@ -75,6 +75,7 @@ private:
 
     void GenerateAttributes();
 
+    UFUNCTION(BlueprintCallable)
     void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level);
 
     UPROPERTY(VisibleAnywhere)

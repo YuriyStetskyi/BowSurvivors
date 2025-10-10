@@ -30,7 +30,7 @@ public:
     void Shoot(const FInputActionValue& InputActionValue);
 
     /* Getters */
-    FORCEINLINE USpringArmComponent* const GetSpringArmComponen() { return SpringArmComponent; }
+    FORCEINLINE USpringArmComponent* const GetSpringArmComponent() { return SpringArmComponent; }
     FORCEINLINE UCameraComponent* const GetCameraComponent() { return CameraComponent; }
     FORCEINLINE UBWSWeaponComponent* const GetWeaponComponent() { return WeaponComponent; }
 

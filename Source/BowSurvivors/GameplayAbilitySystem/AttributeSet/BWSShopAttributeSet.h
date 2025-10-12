@@ -22,6 +22,8 @@ public:
 
     /* Amount of health character should lose when damaged by this weapons projectile */
     UPROPERTY(BlueprintReadOnly, Category = "Attributes | Shop ")
-    FGameplayAttributeData Damage;
+    FGameplayAttributeData RerollPrice;
     ATTRIBUTE_ACCESSORS(UBWSShopAttributeSet, RerollPrice);
+
+
 };

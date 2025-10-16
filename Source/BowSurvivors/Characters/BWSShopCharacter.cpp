@@ -5,11 +5,18 @@
 #include "Components/SphereComponent.h"
 #include "Characters/BWSPlayerCharacter.h"
 #include "Components/BillboardComponent.h"
+#include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
+#include "GameplayAbilitySystem/AttributeSet/BWSShopAttributeSet.h"
 
 
 ABWSShopCharacter::ABWSShopCharacter()
 {
     InitializeComponents();
+}
+
+UAbilitySystemComponent* ABWSShopCharacter::GetAbilitySystemComponent() const
+{
+    return AbilitySystemComponent;
 }
 
 void ABWSShopCharacter::BeginPlay()
@@ -30,6 +37,10 @@ void ABWSShopCharacter::InitializeComponents()
     ShopPopupBillboard->SetupAttachment(GetRootComponent());
     ShopPopupBillboard->SetVisibility(false);
     ShopPopupBillboard->SetHiddenInGame(false);
+
+    /* Ability System Component */
+    AbilitySystemComponent = CreateDefaultSubobject<UBWSAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
+    AttributeSet = CreateDefaultSubobject<UBWSShopAttributeSet>(TEXT("AttributeSet"));
 }
 
 void ABWSShopCharacter::BindOnOverlapCallbacks()

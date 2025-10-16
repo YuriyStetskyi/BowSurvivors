@@ -21,6 +21,9 @@ class BOWSURVIVORS_API ABWSShopCharacter : public ABWSBaseCharacter
 public:
     ABWSShopCharacter();
 
+    virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
+    UAttributeSet* GetAttributeSet() const { return AttributeSet; }
+
     UFUNCTION(BlueprintImplementableEvent)
     void PlayerEnteredRadius(ABWSPlayerCharacter* PlayerCharacter);
 

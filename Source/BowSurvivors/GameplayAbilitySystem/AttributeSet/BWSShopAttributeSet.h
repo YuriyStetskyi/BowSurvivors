@@ -20,7 +20,7 @@ public:
     virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
     virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
-    /* Amount of health character should lose when damaged by this weapons projectile */
+    /* Current Shop Reroll Price */
     UPROPERTY(BlueprintReadOnly, Category = "Attributes | Shop ")
     FGameplayAttributeData RerollPrice;
     ATTRIBUTE_ACCESSORS(UBWSShopAttributeSet, RerollPrice);

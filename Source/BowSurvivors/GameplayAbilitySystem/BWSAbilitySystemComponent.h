@@ -6,6 +6,8 @@
 #include "AbilitySystemComponent.h"
 #include "BWSAbilitySystemComponent.generated.h"
 
+class UGameplayAbility;
+
 DECLARE_MULTICAST_DELEGATE_OneParam(FEffectAssetTags, const FGameplayTagContainer& /* AssetTags */);
 
 /**
@@ -21,6 +23,8 @@ public:
     void AbilityActorInfoSet();
    
     FEffectAssetTags EffectAssetTags;
+
+    void AddCharacterAbilities(const TArray<TSubclassOf<UGameplayAbility>>& StartupAbilities);
 
 protected:
     void OnGameplayEffectAppliedToSelf(UAbilitySystemComponent* AbilitySystemComponent, const FGameplayEffectSpec& EffectSpec, FActiveGameplayEffectHandle ActiveEffectHandle);

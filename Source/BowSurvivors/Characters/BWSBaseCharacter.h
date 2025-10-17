@@ -10,6 +10,7 @@
 class UAbilitySystemComponent;
 class UAttributeSet;
 class UGameplayEffect;
+class UGameplayAbility;
 
 /**
  *  Base class of all character type actors. All enemies, npcs and player should inherit this class.
@@ -22,6 +23,9 @@ class BOWSURVIVORS_API ABWSBaseCharacter : public ACharacter, public IAbilitySys
 public:
     // Sets default values for this character's properties
     ABWSBaseCharacter();
+
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
 
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
     UAttributeSet* GetAttributeSet() const { return AttributeSet; }
@@ -55,8 +59,11 @@ protected:
     void InitializeMaxAttributes() const;
     void InitializeCurrentAttributes() const;
 
-public:
-    // Called every frame
-    virtual void Tick(float DeltaTime) override;
+    void AddCharacterAbilities();
+
+private:
+
+    UPROPERTY(EditAnywhere, Category = "GAS | Abilities")
+    TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 
 };

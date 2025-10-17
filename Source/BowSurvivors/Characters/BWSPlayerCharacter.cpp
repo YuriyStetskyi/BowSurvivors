@@ -111,6 +111,7 @@ void ABWSPlayerCharacter::PossessedBy(AController* NewController)
     Super::PossessedBy(NewController);
 
     InitializeAbilityActorInfo();
+    AddCharacterAbilities();
 }
 
 void ABWSPlayerCharacter::InitializeComponents()

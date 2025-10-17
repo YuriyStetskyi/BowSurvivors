@@ -6,6 +6,7 @@
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/BWSAttributeSet.h"
 #include "GameplayEffect.h"
+#include "Abilities/GameplayAbility.h"
 
 // Sets default values
 ABWSBaseCharacter::ABWSBaseCharacter()
@@ -47,6 +48,14 @@ void ABWSBaseCharacter::InitializeDefaultAttributes()
 {
     ApplyEffectToSelf(MaxAttributesInitializerEffect, 1.0f);
     ApplyEffectToSelf(CurrentAttributesInitializerEffect, 1.0f);
+}
+
+void ABWSBaseCharacter::AddCharacterAbilities()
+{
+    UBWSAbilitySystemComponent* const ASC = Cast<UBWSAbilitySystemComponent>(AbilitySystemComponent);
+    if (!ASC) return;
+
+    ASC->AddCharacterAbilities(StartupAbilities);
 }
 
 // Called every frame

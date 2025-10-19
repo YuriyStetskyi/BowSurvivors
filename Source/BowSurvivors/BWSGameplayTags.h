@@ -45,6 +45,19 @@ public:
     FGameplayTag Attributes_Weapon_Utility;
     FGameplayTag Attributes_Weapon_Score;
 
+    /*
+    *   Input Tags
+    */
+
+    FGameplayTag InputTag_Attack;
+    FGameplayTag InputTag_Ability1;
+    FGameplayTag InputTag_Ability2;
+    FGameplayTag InputTag_Ability3;
+    FGameplayTag InputTag_Dash;
+
+    FGameplayTag InputTag_Interact;
+    FGameplayTag InputTag_ShowStats;
+
 
 protected:
 

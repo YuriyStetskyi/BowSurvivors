@@ -2,13 +2,13 @@
 
 
 #include "Controllers/Player/BWSPlayerController.h"
-#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputAction.h"
-#include "EnhancedInputComponent.h"
 #include "Characters/BWSPlayerCharacter.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
+#include "Input/BWSInputConfig.h"
+#include "Input/BWSInputComponent.h"
 
 #define PROJECTION_RAY_LENGTH 10000.0f
 
@@ -60,12 +60,14 @@ void ABWSPlayerController::SetupInputActions(APawn* ControlledPawn)
     ABWSPlayerCharacter* const PlayerCharacter = Cast<ABWSPlayerCharacter>(ControlledPawn);
     if (!PlayerCharacter) return;
 
-    EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerCharacter->InputComponent);
-    if (!EnhancedInputComponent) return;
+    BWSInputComponent = Cast<UBWSInputComponent>(PlayerCharacter->InputComponent);
+    if (!BWSInputComponent) return;
 
-    EnhancedInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Move);
-    EnhancedInputComponent->BindAction(ActionShoot, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Shoot);
-    EnhancedInputComponent->BindAction(ActionShowWeaponStats, ETriggerEvent::Triggered, this, &ABWSPlayerController::ShowWeaponStats);
+    BWSInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Move);
+    BWSInputComponent->BindAction(ActionShoot, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Shoot);
+    BWSInputComponent->BindAction(ActionShowWeaponStats, ETriggerEvent::Triggered, this, &ABWSPlayerController::ShowWeaponStats);
+
+    BWSInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 }
 
 void ABWSPlayerController::SetupCursor()
@@ -121,4 +123,19 @@ void ABWSPlayerController::LookAtLocation(const FVector& LocationToLookAt)
     FRotator LookAtRotation = UKismetMathLibrary::FindLookAtRotation(Start, End);
 
     ControlledPawn->SetActorRotation(LookAtRotation);
+}
+
+void ABWSPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
+{
+    GEngine->AddOnScreenDebugMessage(1, 3.0f, FColor::Red, *InputTag.ToString());
+}
+
+void ABWSPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
+{
+    GEngine->AddOnScreenDebugMessage(2, 3.0f, FColor::Blue, *InputTag.ToString());
+}
+
+void ABWSPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
+{
+    GEngine->AddOnScreenDebugMessage(3, 3.0f, FColor::Green, *InputTag.ToString());
 }

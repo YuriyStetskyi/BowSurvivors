@@ -4,12 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "GameplayTagContainer.h"
 #include "BWSPlayerController.generated.h"
 
 class UInputMappingContext;
 class UInputAction;
 class ABWSPlayerCharacter;
 class UEnhancedInputComponent;
+class UBWSInputConfig;
+class UBWSInputComponent;
 
 DECLARE_MULTICAST_DELEGATE(FOnWeaponStatsShow);
 
@@ -35,7 +38,7 @@ protected:
 
     /* Cached Enhanced Input Compoennt reference */
     UPROPERTY()
-    UEnhancedInputComponent* EnhancedInputComponent;
+    UBWSInputComponent* BWSInputComponent;
 
     /* Default mapping context used for game */
     UPROPERTY(EditDefaultsOnly, Category = "Input")
@@ -88,5 +91,12 @@ private:
     FVector CurrentMouseLocation;
 
 #pragma endregion 
+
+    void AbilityInputTagPressed(FGameplayTag InputTag);
+    void AbilityInputTagReleased(FGameplayTag InputTag);
+    void AbilityInputTagHeld(FGameplayTag InputTag);
+
+    UPROPERTY(EditAnywhere, Category = "Input")
+    UBWSInputConfig* InputConfig;
 
 };

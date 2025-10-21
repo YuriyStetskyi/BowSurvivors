@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Abilities/GameplayAbility.h"
+#include "GameplayTagContainer.h"
 #include "BWSGameplayAbility.generated.h"
 
 /**
@@ -14,4 +15,10 @@ class BOWSURVIVORS_API UBWSGameplayAbility : public UGameplayAbility
 {
 	GENERATED_BODY()
 	
+public:
+
+
+    UPROPERTY(EditDefaultsOnly, Category = "Input")
+    FGameplayTag StartupGameplayTag;
+
 };

@@ -2,6 +2,7 @@
 
 
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
+#include "GameplayAbilitySystem/Abilities/BWSGameplayAbility.h"
 #include "BWSGameplayTags.h"
 #include "Abilities/GameplayAbility.h"
 
@@ -18,8 +19,38 @@ void UBWSAbilitySystemComponent::AddCharacterAbilities(const TArray<TSubclassOf<
     for (TSubclassOf<UGameplayAbility> AbilityClass : StartupAbilities)
     {
         FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilityClass, 1);
-        //GiveAbility(AbilitySpec);
-        GiveAbilityAndActivateOnce(AbilitySpec);
+        UBWSGameplayAbility* const BWSAbility = Cast<UBWSGameplayAbility>(AbilitySpec.Ability);
+        if (!BWSAbility) continue;
+
+        AbilitySpec.DynamicAbilityTags.AddTag(BWSAbility->StartupGameplayTag);
+        GiveAbility(AbilitySpec);
+    }
+}
+
+void UBWSAbilitySystemComponent::AbilityInputTagHeld(const FGameplayTag& InputTag)
+{
+    if (!InputTag.IsValid()) return;
+
+    for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+    {
+        if (!AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag)) continue;
+        AbilitySpecInputPressed(AbilitySpec);
+
+        if (!AbilitySpec.IsActive())
+        {
+            TryActivateAbility(AbilitySpec.Handle);
+        }
+    }
+}
+
+void UBWSAbilitySystemComponent::AbilityInputTagReleased(const FGameplayTag& InputTag)
+{
+    if (!InputTag.IsValid()) return;
+
+    for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+    {
+        if (!AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag)) continue;
+        AbilitySpecInputReleased(AbilitySpec);
     }
 }
 

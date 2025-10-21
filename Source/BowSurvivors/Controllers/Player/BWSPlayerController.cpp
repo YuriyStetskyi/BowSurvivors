@@ -3,12 +3,14 @@
 
 #include "Controllers/Player/BWSPlayerController.h"
 #include "EnhancedInputSubsystems.h"
+#include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "InputAction.h"
 #include "Characters/BWSPlayerCharacter.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "Kismet/KismetSystemLibrary.h"
 #include "Input/BWSInputConfig.h"
 #include "Input/BWSInputComponent.h"
+#include "AbilitySystemBlueprintLibrary.h"
 
 #define PROJECTION_RAY_LENGTH 10000.0f
 
@@ -127,15 +129,27 @@ void ABWSPlayerController::LookAtLocation(const FVector& LocationToLookAt)
 
 void ABWSPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-    GEngine->AddOnScreenDebugMessage(1, 3.0f, FColor::Red, *InputTag.ToString());
+    //GEngine->AddOnScreenDebugMessage(1, 3.0f, FColor::Red, *InputTag.ToString());
 }
 
 void ABWSPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
 {
-    GEngine->AddOnScreenDebugMessage(2, 3.0f, FColor::Blue, *InputTag.ToString());
+    if (!GetASC()) return;
+    GetASC()->AbilityInputTagReleased(InputTag);
 }
 
 void ABWSPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
-    GEngine->AddOnScreenDebugMessage(3, 3.0f, FColor::Green, *InputTag.ToString());
+    if (!GetASC()) return;
+    GetASC()->AbilityInputTagHeld(InputTag);
+}
+
+UBWSAbilitySystemComponent* const ABWSPlayerController::GetASC()
+{
+    if (!BWSAbilitySystemComponent)
+    {
+        BWSAbilitySystemComponent = Cast<UBWSAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn()));
+    }
+
+    return BWSAbilitySystemComponent;
 }

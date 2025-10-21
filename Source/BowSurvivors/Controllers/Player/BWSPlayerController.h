@@ -13,6 +13,7 @@ class ABWSPlayerCharacter;
 class UEnhancedInputComponent;
 class UBWSInputConfig;
 class UBWSInputComponent;
+class UBWSAbilitySystemComponent;
 
 DECLARE_MULTICAST_DELEGATE(FOnWeaponStatsShow);
 
@@ -99,4 +100,8 @@ private:
     UPROPERTY(EditAnywhere, Category = "Input")
     UBWSInputConfig* InputConfig;
 
+    UPROPERTY()
+    UBWSAbilitySystemComponent* BWSAbilitySystemComponent;
+
+    UBWSAbilitySystemComponent* const GetASC();
 };

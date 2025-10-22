@@ -31,7 +31,10 @@ void ABWSPlayerController::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    CurrentMouseLocation = FindProjectedMouseLocation(CursorProjectionChannel);
+    FHitResult Hit;
+    GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(CursorProjectionChannel), true, Hit);
+    CurrentMouseLocation = Hit.Location;
+    //CurrentMouseLocation = FindProjectedMouseLocation(CursorProjectionChannel);
     LookAtLocation(CurrentMouseLocation);
 }
 

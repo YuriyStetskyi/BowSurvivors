@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Characters/BWSBaseCharacter.h"
+#include "Interaction/BWSCombatInterface.h"
 #include "BWSPlayerCharacter.generated.h"
 
 struct FInputActionValue;
@@ -16,18 +17,17 @@ class UBWSWeaponComponent;
  *  Player Character class. Stores player specific data and logic.
  */
 UCLASS()
-class BOWSURVIVORS_API ABWSPlayerCharacter : public ABWSBaseCharacter
+class BOWSURVIVORS_API ABWSPlayerCharacter : public ABWSBaseCharacter, public IBWSCombatInterface
 {
     GENERATED_BODY()
 
 public:
     ABWSPlayerCharacter(const FObjectInitializer& ObjectInitializer);
 
+    virtual FVector GetWeaponSocketLocation() override;
+
     /* Move action */
     void Move(const FInputActionValue& InputActionValue);
-
-    /* Shoot action */
-    void Shoot(const FInputActionValue& InputActionValue);
 
     /* Getters */
     FORCEINLINE USpringArmComponent* const GetSpringArmComponent() { return SpringArmComponent; }
@@ -64,6 +64,9 @@ protected:
     /* Component that stores all weapons and their data */
     UPROPERTY(EditDefaultsOnly, Category = "Components")
     UBWSWeaponComponent* WeaponComponent;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Sockets")
+    FName ProjectileStartSocketName;
 
     /* Initialize AbilitySystem Info and Component/AttributeSet pointers from PlayerState */
     virtual void InitializeAbilityActorInfo() override; 

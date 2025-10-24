@@ -20,5 +20,4 @@ public:
 
     UPROPERTY(EditDefaultsOnly, Category = "Input")
     FGameplayTag StartupGameplayTag;
-
 };

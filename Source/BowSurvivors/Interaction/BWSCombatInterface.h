@@ -24,4 +24,6 @@ class BOWSURVIVORS_API IBWSCombatInterface
 public:
 
     virtual int32 GetCurrentLevel();
+
+    virtual FVector GetWeaponSocketLocation();
 };

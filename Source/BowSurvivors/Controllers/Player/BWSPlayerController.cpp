@@ -69,7 +69,6 @@ void ABWSPlayerController::SetupInputActions(APawn* ControlledPawn)
     if (!BWSInputComponent) return;
 
     BWSInputComponent->BindAction(ActionMove, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Move);
-    BWSInputComponent->BindAction(ActionShoot, ETriggerEvent::Triggered, PlayerCharacter, &ABWSPlayerCharacter::Shoot);
     BWSInputComponent->BindAction(ActionShowWeaponStats, ETriggerEvent::Triggered, this, &ABWSPlayerController::ShowWeaponStats);
 
     BWSInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);

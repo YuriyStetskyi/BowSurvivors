@@ -23,17 +23,22 @@ ABWSPlayerCharacter::ABWSPlayerCharacter(const FObjectInitializer& ObjectInitial
     InitializeComponents();
 }
 
+FVector ABWSPlayerCharacter::GetWeaponSocketLocation()
+{
+    if (!WeaponComponent) return FVector();
+
+    ABWSBaseWeapon* const CurrentWeapon = WeaponComponent->GetCurrentWeapon();
+    if (!CurrentWeapon) return FVector();
+
+    return CurrentWeapon->GetMesh()->GetSocketLocation(ProjectileStartSocketName);
+}
+
 void ABWSPlayerCharacter::Move(const FInputActionValue& InputActionValue)
 {
     const FVector2D MovementVector = InputActionValue.Get<FVector2D>();
 
     AddMovementInput(FVector::ForwardVector, MovementVector.Y);
     AddMovementInput(FVector::RightVector, MovementVector.X);
-}
-
-void ABWSPlayerCharacter::Shoot(const FInputActionValue& InputActionValue)
-{
-    WeaponComponent->Attack();
 }
 
 /* PURE DEBUG FUNCTION SHOULD BE REMOVED LATER*/

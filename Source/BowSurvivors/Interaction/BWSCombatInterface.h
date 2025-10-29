@@ -25,5 +25,5 @@ public:
 
     virtual int32 GetCurrentLevel();
 
-    virtual FVector GetWeaponSocketLocation();
+    virtual FVector GetWeaponSocketLocation(FName SocketName = "");
 };

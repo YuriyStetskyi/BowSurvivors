@@ -2,6 +2,7 @@
 
 
 #include "Weapons/BWSBaseWeapon.h"
+#include "Characters/BWSPlayerCharacter.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/AttributeSet/BWSWeaponAttributeSet.h"
 #include "GameplayEffect.h"
@@ -19,6 +20,21 @@ ABWSBaseWeapon::ABWSBaseWeapon()
 UAbilitySystemComponent* ABWSBaseWeapon::GetAbilitySystemComponent() const
 {
     return AbilitySystemComponent;
+}
+
+FVector ABWSBaseWeapon::GetWeaponSocketLocation(FName SocketName)
+{
+    if (SocketName == "") // If no socket name specified - get it from PlayerCharacter who is HOPEFULLY owner
+    {
+        ABWSPlayerCharacter* const PlayerChar = Cast<ABWSPlayerCharacter>(GetOwner());
+        if (!PlayerChar) return FVector();
+
+        return SkeletalMeshComponent->GetSocketLocation(PlayerChar->ProjectileStartSocketName);
+    }
+    else
+    {
+        return SkeletalMeshComponent->GetSocketLocation(SocketName);
+    }
 }
 
 // Called when the game starts or when spawned
@@ -48,11 +64,11 @@ void ABWSBaseWeapon::ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffe
 
 void ABWSBaseWeapon::InitializeComponents()
 {
-    StaticMeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMeshComponent"));
-    StaticMeshComponent->SetupAttachment(GetRootComponent());
-    StaticMeshComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
-    StaticMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-    StaticMeshComponent->SetEnableGravity(false);
+    SkeletalMeshComponent = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("SkeletalMeshComponent"));
+    SkeletalMeshComponent->SetupAttachment(GetRootComponent());
+    SkeletalMeshComponent->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
+    SkeletalMeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    SkeletalMeshComponent->SetEnableGravity(false);
 
     /* Ability System Component */
     AbilitySystemComponent = CreateDefaultSubobject<UBWSAbilitySystemComponent>(TEXT("AbilitySystemComponent"));

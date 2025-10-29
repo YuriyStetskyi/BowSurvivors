@@ -23,14 +23,14 @@ ABWSPlayerCharacter::ABWSPlayerCharacter(const FObjectInitializer& ObjectInitial
     InitializeComponents();
 }
 
-FVector ABWSPlayerCharacter::GetWeaponSocketLocation()
+FVector ABWSPlayerCharacter::GetWeaponSocketLocation(FName SocketName)
 {
     if (!WeaponComponent) return FVector();
 
     ABWSBaseWeapon* const CurrentWeapon = WeaponComponent->GetCurrentWeapon();
     if (!CurrentWeapon) return FVector();
 
-    return CurrentWeapon->GetMesh()->GetSocketLocation(ProjectileStartSocketName);
+    return CurrentWeapon->GetWeaponSocketLocation(ProjectileStartSocketName);
 }
 
 void ABWSPlayerCharacter::Move(const FInputActionValue& InputActionValue)

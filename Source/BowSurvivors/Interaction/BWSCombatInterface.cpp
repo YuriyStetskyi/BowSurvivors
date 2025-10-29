@@ -10,7 +10,7 @@ int32 IBWSCombatInterface::GetCurrentLevel()
     return 0;
 }
 
-FVector IBWSCombatInterface::GetWeaponSocketLocation()
+FVector IBWSCombatInterface::GetWeaponSocketLocation(FName SocketName)
 {
     return FVector();
 }

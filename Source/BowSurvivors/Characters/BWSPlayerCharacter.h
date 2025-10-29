@@ -24,7 +24,7 @@ class BOWSURVIVORS_API ABWSPlayerCharacter : public ABWSBaseCharacter, public IB
 public:
     ABWSPlayerCharacter(const FObjectInitializer& ObjectInitializer);
 
-    virtual FVector GetWeaponSocketLocation() override;
+    virtual FVector GetWeaponSocketLocation(FName SocketName = "") override;
 
     /* Move action */
     void Move(const FInputActionValue& InputActionValue);
@@ -47,6 +47,9 @@ public:
 
     int32 GetCurrentLevel();
 
+    UPROPERTY(EditDefaultsOnly, Category = "Sockets")
+    FName ProjectileStartSocketName;
+
 protected:
     virtual void BeginPlay() override;
 
@@ -64,9 +67,6 @@ protected:
     /* Component that stores all weapons and their data */
     UPROPERTY(EditDefaultsOnly, Category = "Components")
     UBWSWeaponComponent* WeaponComponent;
-
-    UPROPERTY(EditDefaultsOnly, Category = "Sockets")
-    FName ProjectileStartSocketName;
 
     /* Initialize AbilitySystem Info and Component/AttributeSet pointers from PlayerState */
     virtual void InitializeAbilityActorInfo() override; 

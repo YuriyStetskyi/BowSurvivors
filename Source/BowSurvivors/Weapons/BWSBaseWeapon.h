@@ -27,6 +27,8 @@ public:
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
     UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
+    virtual FVector GetWeaponSocketLocation(FName SocketName = "") override;
+
     // Called every frame
     virtual void Tick(float DeltaTime) override;
 
@@ -42,7 +44,7 @@ public:
     virtual int32 GetCurrentLevel() override { return WeaponLevel; }
 
     /* Retuns Weapon Static mesh (might be skeletal in the future) */
-    FORCEINLINE UStaticMeshComponent* GetMesh() { return StaticMeshComponent; }
+    FORCEINLINE USkeletalMeshComponent* GetMesh() { return SkeletalMeshComponent; }
 
 protected:
     /* Ability System Component - main part of Gameplay Ability System */
@@ -55,7 +57,7 @@ protected:
 
     /* Weapons Static Mesh */
     UPROPERTY(EditDefaultsOnly, Category = "Components")
-    UStaticMeshComponent* StaticMeshComponent;
+    USkeletalMeshComponent* SkeletalMeshComponent;
 
     UPROPERTY(EditDefaultsOnly, Category = "Attributes")
     TSubclassOf<UGameplayEffect> DefaultCoreWeaponAttributesInitializerEffect;

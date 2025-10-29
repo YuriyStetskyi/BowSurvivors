@@ -35,7 +35,7 @@ void UBWSWeaponComponent::EquipWeapon(ABWSBaseWeapon* const Weapon)
     if (!Weapon) return;
     CurrentWeapon = Weapon;
 
-    UStaticMeshComponent* WeaponMesh = Weapon->GetMesh();
+    USkeletalMeshComponent* WeaponMesh = Weapon->GetMesh();
     if (!WeaponMesh) return;
 
     WeaponMesh->SetVisibility(true);
@@ -47,7 +47,7 @@ void UBWSWeaponComponent::HolsterWeapon(ABWSBaseWeapon* const Weapon)
 
     if (Weapon == CurrentWeapon) CurrentWeapon = nullptr;
 
-    UStaticMeshComponent* WeaponMesh = Weapon->GetMesh();
+    USkeletalMeshComponent* WeaponMesh = Weapon->GetMesh();
     if (!WeaponMesh) return;
 
     WeaponMesh->SetVisibility(false);

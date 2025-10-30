@@ -39,7 +39,8 @@ public:
     virtual void BeginPlay() override;
 
     /* returns currently equipped weapon*/
-    FORCEINLINE ABWSBaseWeapon* const GetCurrentWeapon() { return CurrentWeapon; }
+    UFUNCTION(BlueprintCallable)
+    ABWSBaseWeapon* const GetCurrentWeapon() { return CurrentWeapon; }
 
     /* Performs attack depending on weapon */
     void Attack();

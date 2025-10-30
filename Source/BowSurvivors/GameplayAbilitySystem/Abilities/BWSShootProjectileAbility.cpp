@@ -30,5 +30,5 @@ void UBWSShootProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandl
 
     SpawnedProjectile->FinishSpawning(SpawnTransform);
 
-    EndAbility(Handle, ActorInfo, ActivationInfo, false, false);
+    //EndAbility(Handle, ActorInfo, ActivationInfo, false, false);
 }

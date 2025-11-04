@@ -23,4 +23,6 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Defaults")
     TSubclassOf<ABWSProjectile> SpawnedProjectileClass;
 
+    UFUNCTION(BlueprintCallable, Category = "Projectile")
+    void ShootProjectile();
 };

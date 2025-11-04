@@ -9,6 +9,11 @@ void UBWSShootProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandl
 {
     Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
+    
+}
+
+void UBWSShootProjectileAbility::ShootProjectile()
+{
     IBWSCombatInterface* const ActorCombat = Cast<IBWSCombatInterface>(GetAvatarActorFromActorInfo());
     if (!ActorCombat) return;
 
@@ -20,15 +25,13 @@ void UBWSShootProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandl
     UWorld* const World = GetWorld();
     if (!World) return;
 
-    ABWSProjectile* const SpawnedProjectile = World->SpawnActorDeferred<ABWSProjectile>(SpawnedProjectileClass, 
-        SpawnTransform, 
-        GetOwningActorFromActorInfo(), 
-        Cast<APawn>(GetOwningActorFromActorInfo()), 
+    ABWSProjectile* const SpawnedProjectile = World->SpawnActorDeferred<ABWSProjectile>(SpawnedProjectileClass,
+        SpawnTransform,
+        GetOwningActorFromActorInfo(),
+        Cast<APawn>(GetOwningActorFromActorInfo()),
         ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
- 
+
     // GiveProjectile gameplay effect for dealing damage
 
     SpawnedProjectile->FinishSpawning(SpawnTransform);
-
-    //EndAbility(Handle, ActorInfo, ActivationInfo, false, false);
 }

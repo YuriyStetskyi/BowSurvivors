@@ -12,13 +12,18 @@ void UBWSShootProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandl
     
 }
 
-void UBWSShootProjectileAbility::ShootProjectile()
+void UBWSShootProjectileAbility::ShootProjectile(const FVector& ProjectileTargetLocation)
 {
     IBWSCombatInterface* const ActorCombat = Cast<IBWSCombatInterface>(GetAvatarActorFromActorInfo());
     if (!ActorCombat) return;
 
+    FVector SocketLocation = ActorCombat->GetWeaponSocketLocation();
+    FRotator ProjectileRotation = (ProjectileTargetLocation - ActorCombat->GetWeaponSocketLocation()).Rotation();
+    ProjectileRotation.Pitch = 0.0f;
+
     FTransform SpawnTransform;
-    SpawnTransform.SetLocation(ActorCombat->GetWeaponSocketLocation());
+    SpawnTransform.SetLocation(SocketLocation);
+    SpawnTransform.SetRotation(ProjectileRotation.Quaternion());
 
     // Set Rotation Later
 

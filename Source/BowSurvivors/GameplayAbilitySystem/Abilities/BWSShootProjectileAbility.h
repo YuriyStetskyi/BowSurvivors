@@ -24,5 +24,5 @@ protected:
     TSubclassOf<ABWSProjectile> SpawnedProjectileClass;
 
     UFUNCTION(BlueprintCallable, Category = "Projectile")
-    void ShootProjectile();
+    void ShootProjectile(const FVector& ProjectileTargetLocation);
 };

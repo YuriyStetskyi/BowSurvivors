@@ -32,6 +32,9 @@ public:
     virtual void Tick(float DeltaTime) override;
 
     FOnWeaponStatsShow OnWeaponStatsShow;
+ 
+    UFUNCTION(BlueprintCallable)
+    ECollisionChannel GetCursorProjectionChannel() { return CursorProjectionChannel; }
 
 protected:
     /* Called when controller possesses a pawn */

@@ -4,6 +4,8 @@
 #include "Actors/BWSProjectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "Kismet/GameplayStatics.h"
 
 ABWSProjectile::ABWSProjectile()
 {
@@ -33,4 +35,9 @@ void ABWSProjectile::BeginPlay()
 void ABWSProjectile::OnSphereColliderOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
     GEngine->AddOnScreenDebugMessage(1, 5, FColor::Orange, "--- projectile overlapped something ---");
+
+    UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
+    UGameplayStatics::SpawnSoundAtLocation(this, ImpactSound, GetActorLocation());
+
+    Destroy();
 }

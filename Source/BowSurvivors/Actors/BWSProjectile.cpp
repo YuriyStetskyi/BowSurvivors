@@ -6,6 +6,8 @@
 #include "Components/SphereComponent.h"
 #include "NiagaraFunctionLibrary.h"
 #include "Kismet/GameplayStatics.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 
 ABWSProjectile::ABWSProjectile()
 {
@@ -38,6 +40,11 @@ void ABWSProjectile::OnSphereColliderOverlap(UPrimitiveComponent* OverlappedComp
 
     UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ImpactEffect, GetActorLocation());
     UGameplayStatics::SpawnSoundAtLocation(this, ImpactSound, GetActorLocation());
+
+    UAbilitySystemComponent* TargetASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(OtherActor);
+    if (!TargetASC) return;
+
+    TargetASC->ApplyGameplayEffectSpecToSelf(*DamageEffectSpecHandle.Data.Get());
 
     Destroy();
 }

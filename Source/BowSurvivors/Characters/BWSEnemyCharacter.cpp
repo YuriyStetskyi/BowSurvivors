@@ -3,7 +3,7 @@
 
 #include "Characters/BWSEnemyCharacter.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
-#include "GameplayAbilitySystem/BWSAttributeSet.h"
+#include "GameplayAbilitySystem/AttributeSet/BWSCharacterAttributeSet.h"
 
 ABWSEnemyCharacter::ABWSEnemyCharacter()
     : EnemyLevel(1)
@@ -25,11 +25,13 @@ void ABWSEnemyCharacter::InitializeAbilityActorInfo()
     UBWSAbilitySystemComponent* const ASC = Cast<UBWSAbilitySystemComponent>(AbilitySystemComponent);
     if (!ASC) return;
 
+    InitializeDefaultAttributes();
+
     ASC->AbilityActorInfoSet();
 }
 
 void ABWSEnemyCharacter::InitializeComponents()
 {
     AbilitySystemComponent = CreateDefaultSubobject<UBWSAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-    AttributeSet = CreateDefaultSubobject<UBWSAttributeSet>(TEXT("AttributeSet"));
+    AttributeSet = CreateDefaultSubobject<UBWSCharacterAttributeSet>(TEXT("AttributeSet"));
 }

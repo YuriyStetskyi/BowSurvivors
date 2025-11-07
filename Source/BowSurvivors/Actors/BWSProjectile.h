@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Abilities/GameplayAbilityTypes.h"
 #include "BWSProjectile.generated.h"
 
 class UProjectileMovementComponent;
@@ -17,6 +18,9 @@ class BOWSURVIVORS_API ABWSProjectile : public AActor
 	
 public:	
 	ABWSProjectile();
+
+    UPROPERTY(BlueprintReadWrite, meta = (ExposeOnSpawn = "true"))
+    FGameplayEffectSpecHandle DamageEffectSpecHandle;
 
 protected:
 	virtual void BeginPlay() override;

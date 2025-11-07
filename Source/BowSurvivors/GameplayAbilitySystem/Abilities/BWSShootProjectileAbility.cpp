@@ -4,6 +4,9 @@
 #include "GameplayAbilitySystem/Abilities/BWSShootProjectileAbility.h"
 #include "Interaction/BWSCombatInterface.h"
 #include "Actors/BWSProjectile.h"
+#include "GameplayEffect.h"
+#include "AbilitySystemBlueprintLibrary.h"
+#include "AbilitySystemComponent.h"
 
 void UBWSShootProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData)
 {
@@ -14,18 +17,16 @@ void UBWSShootProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandl
 
 void UBWSShootProjectileAbility::ShootProjectile(const FVector& ProjectileTargetLocation)
 {
-    IBWSCombatInterface* const ActorCombat = Cast<IBWSCombatInterface>(GetAvatarActorFromActorInfo());
-    if (!ActorCombat) return;
+    IBWSCombatInterface* const WeaponActor = Cast<IBWSCombatInterface>(GetAvatarActorFromActorInfo());
+    if (!WeaponActor) return;
 
-    FVector SocketLocation = ActorCombat->GetWeaponSocketLocation();
-    FRotator ProjectileRotation = (ProjectileTargetLocation - ActorCombat->GetWeaponSocketLocation()).Rotation();
+    FVector SocketLocation = WeaponActor->GetWeaponSocketLocation();
+    FRotator ProjectileRotation = (ProjectileTargetLocation - WeaponActor->GetWeaponSocketLocation()).Rotation();
     ProjectileRotation.Pitch = 0.0f;
 
     FTransform SpawnTransform;
     SpawnTransform.SetLocation(SocketLocation);
     SpawnTransform.SetRotation(ProjectileRotation.Quaternion());
-
-    // Set Rotation Later
 
     UWorld* const World = GetWorld();
     if (!World) return;
@@ -36,7 +37,11 @@ void UBWSShootProjectileAbility::ShootProjectile(const FVector& ProjectileTarget
         Cast<APawn>(GetOwningActorFromActorInfo()),
         ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
 
-    // GiveProjectile gameplay effect for dealing damage
+    UAbilitySystemComponent* WeaponASC = UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetAvatarActorFromActorInfo());
+    if (!WeaponASC) return;
 
+    FGameplayEffectSpecHandle DamageEffectSpecHandle = WeaponASC->MakeOutgoingSpec(DamageGameplayEffect, 1, WeaponASC->MakeEffectContext());
+    SpawnedProjectile->DamageEffectSpecHandle = DamageEffectSpecHandle;
+    
     SpawnedProjectile->FinishSpawning(SpawnTransform);
 }

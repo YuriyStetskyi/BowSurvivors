@@ -7,6 +7,7 @@
 #include "BWSShootProjectileAbility.generated.h"
 
 class ABWSProjectile;
+class UGameplayEffect;
 
 /**
  * 
@@ -22,6 +23,9 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "Defaults")
     TSubclassOf<ABWSProjectile> SpawnedProjectileClass;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Defaults")
+    TSubclassOf<UGameplayEffect> DamageGameplayEffect;
 
     UFUNCTION(BlueprintCallable, Category = "Projectile")
     void ShootProjectile(const FVector& ProjectileTargetLocation);

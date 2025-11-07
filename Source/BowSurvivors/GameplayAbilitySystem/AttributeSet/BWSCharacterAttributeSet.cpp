@@ -39,5 +39,6 @@ void UBWSCharacterAttributeSet::PostGameplayEffectExecute(const FGameplayEffectM
     if (Data.EvaluatedData.Attribute == GetHealthAttribute())
     {
         SetHealth(FMath::Clamp(GetHealth(), 0, GetMaxHealth()));
+        UE_LOG(LogTemp, Warning, TEXT("Health Changed. New Health: %f "), GetHealth());
     }
 }

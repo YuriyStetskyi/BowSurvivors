@@ -4,6 +4,7 @@
 #include "Characters/BWSEnemyCharacter.h"
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/AttributeSet/BWSCharacterAttributeSet.h"
+#include "Components/WidgetComponent.h"
 
 ABWSEnemyCharacter::ABWSEnemyCharacter()
     : EnemyLevel(1)
@@ -32,6 +33,9 @@ void ABWSEnemyCharacter::InitializeAbilityActorInfo()
 
 void ABWSEnemyCharacter::InitializeComponents()
 {
+    HealthBarWidget = CreateDefaultSubobject<UWidgetComponent>(TEXT("HealthBarWidget"));
+    HealthBarWidget->SetupAttachment(RootComponent);
+
     AbilitySystemComponent = CreateDefaultSubobject<UBWSAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
     AttributeSet = CreateDefaultSubobject<UBWSCharacterAttributeSet>(TEXT("AttributeSet"));
 }

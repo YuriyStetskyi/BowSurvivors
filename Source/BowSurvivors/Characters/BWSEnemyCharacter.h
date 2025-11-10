@@ -7,6 +7,8 @@
 #include "Characters/BWSBaseCharacter.h"
 #include "BWSEnemyCharacter.generated.h"
 
+class UWidgetComponent;
+
 /**
  *  Enemy Character class. Inherits ABWSBaseCharacter. Represents all enemies in the game.
  */
@@ -19,6 +21,10 @@ public:
     ABWSEnemyCharacter();
 
 protected:
+    
+    UPROPERTY(EditDefaultsOnly, Category = "Components")
+    UWidgetComponent* HealthBarWidget;
+
     virtual void BeginPlay() override;
 
     virtual void InitializeAbilityActorInfo() override;

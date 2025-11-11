@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Interaction/BWSCombatInterface.h"
 #include "Characters/BWSBaseCharacter.h"
+#include "UI/WidgetController/BWSOverlayWidgetController.h"
 #include "BWSEnemyCharacter.generated.h"
 
 class UWidgetComponent;
@@ -24,6 +25,12 @@ protected:
     
     UPROPERTY(EditDefaultsOnly, Category = "Components")
     UWidgetComponent* HealthBarWidget;
+
+    UPROPERTY(BlueprintAssignable, Category = "GAS | Attributes")
+    FOnAttributeChangedSignature OnHealthChanged;
+
+    UPROPERTY(BlueprintAssignable, Category = "GAS | Attributes")
+    FOnAttributeChangedSignature OnMaxHealthChanged;
 
     virtual void BeginPlay() override;
 

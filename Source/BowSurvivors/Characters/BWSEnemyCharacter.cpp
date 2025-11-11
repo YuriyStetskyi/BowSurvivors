@@ -5,6 +5,7 @@
 #include "GameplayAbilitySystem/BWSAbilitySystemComponent.h"
 #include "GameplayAbilitySystem/AttributeSet/BWSCharacterAttributeSet.h"
 #include "Components/WidgetComponent.h"
+#include "UI/Widgets/BWSUserWidget.h"
 
 ABWSEnemyCharacter::ABWSEnemyCharacter()
     : EnemyLevel(1)
@@ -17,6 +18,26 @@ void ABWSEnemyCharacter::BeginPlay()
     Super::BeginPlay();
 
     InitializeAbilityActorInfo();
+
+    UBWSUserWidget* const BWSHealthBarWidget = Cast<UBWSUserWidget>(HealthBarWidget);
+    if (!BWSHealthBarWidget) return;
+
+    BWSHealthBarWidget->SetWidgetController(this);
+
+    UBWSCharacterAttributeSet* const AS = Cast<UBWSCharacterAttributeSet>(AttributeSet);
+    if (!AS) return;
+
+    AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AS->GetHealthAttribute()).AddLambda(
+        [this](const FOnAttributeChangeData& Data)
+        {
+            OnHealthChanged.Broadcast(Data.NewValue);
+        });
+
+    AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(AS->GetMaxHealthAttribute()).AddLambda(
+        [this](const FOnAttributeChangeData& Data)
+        {
+            OnMaxHealthChanged.Broadcast(Data.NewValue);
+        });
 }
 
 void ABWSEnemyCharacter::InitializeAbilityActorInfo()

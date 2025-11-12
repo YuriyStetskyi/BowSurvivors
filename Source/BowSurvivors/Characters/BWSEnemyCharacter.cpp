@@ -19,7 +19,7 @@ void ABWSEnemyCharacter::BeginPlay()
 
     InitializeAbilityActorInfo();
 
-    UBWSUserWidget* const BWSHealthBarWidget = Cast<UBWSUserWidget>(HealthBarWidget);
+    UBWSUserWidget* const BWSHealthBarWidget = Cast<UBWSUserWidget>(HealthBarWidget->GetUserWidgetObject());
     if (!BWSHealthBarWidget) return;
 
     BWSHealthBarWidget->SetWidgetController(this);
@@ -38,6 +38,9 @@ void ABWSEnemyCharacter::BeginPlay()
         {
             OnMaxHealthChanged.Broadcast(Data.NewValue);
         });
+
+    OnHealthChanged.Broadcast(AS->GetHealth());
+    OnMaxHealthChanged.Broadcast(AS->GetMaxHealth());
 }
 
 void ABWSEnemyCharacter::InitializeAbilityActorInfo()

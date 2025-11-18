@@ -13,7 +13,7 @@ class UBWSWeaponComponent;
 enum class EWeaponSlot : uint8;
 
 /**
- * 
+ *  Library with static functions for blueprint use.
  */
 UCLASS()
 class BOWSURVIVORS_API UBWSAbilitySystemLibrary : public UBlueprintFunctionLibrary
@@ -22,12 +22,15 @@ class BOWSURVIVORS_API UBWSAbilitySystemLibrary : public UBlueprintFunctionLibra
 	
 public:
 
+    /* Returns OverlayWidgetController class reference. */
     UFUNCTION(BlueprintPure)
     static UBWSOverlayWidgetController* GetOverlayWidgetController(const UObject* WorldContextObject);
 
+    /* Returns WeaponWidgetController class reference. */
     UFUNCTION(BlueprintPure)
     static UBWSWeaponWidgetController* GetWeaponWidgetController(const UObject* WorldContextObject, EWeaponSlot WeaponSlot);
 
+    /* Returns players PlayerWeaponComponent class reference. */
     UFUNCTION(BlueprintPure)
-    static UBWSWeaponComponent* GetPlayerWeaponComponnt(const UObject* WorldContextObject);
+    static UBWSWeaponComponent* GetPlayerWeaponComponent(const UObject* WorldContextObject);
 };

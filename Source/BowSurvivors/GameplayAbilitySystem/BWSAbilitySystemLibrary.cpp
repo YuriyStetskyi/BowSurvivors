@@ -89,7 +89,7 @@ UBWSWeaponWidgetController* UBWSAbilitySystemLibrary::GetWeaponWidgetController(
     return nullptr;
 }
 
-UBWSWeaponComponent* UBWSAbilitySystemLibrary::GetPlayerWeaponComponnt(const UObject* WorldContextObject)
+UBWSWeaponComponent* UBWSAbilitySystemLibrary::GetPlayerWeaponComponent(const UObject* WorldContextObject)
 {
     APlayerController* const PC = UGameplayStatics::GetPlayerController(WorldContextObject, 0);
     if (!PC) return nullptr;

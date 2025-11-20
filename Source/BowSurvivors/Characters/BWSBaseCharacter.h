@@ -27,7 +27,10 @@ public:
     // Called every frame
     virtual void Tick(float DeltaTime) override;
 
+    /* Gets Ability System Component. */
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
+
+    /* Gets Attribute Set. */
     UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
 protected:
@@ -45,24 +48,29 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Components | GAS")
     UAttributeSet* AttributeSet;
 
+    /* Should be overriden in child class. Initializes Ability Actor Info. */
     virtual void InitializeAbilityActorInfo();
 
+    /* Effect that is self applied at BeginPlay() and initializes Max Attributes*/
     UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
     TSubclassOf<UGameplayEffect> MaxAttributesInitializerEffect;
 
+    /* Effect that is self applied at BeginPlay() and initializes Current Attributes*/
     UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Attributes")
     TSubclassOf<UGameplayEffect> CurrentAttributesInitializerEffect;
 
+    /* Applies Gameplay Effect to self. (ASC is obtained automatically depending on child class GetASC override) */
     void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level);
 
+    /* Initializes Default Attributes. */
     void InitializeDefaultAttributes();
-    void InitializeMaxAttributes() const;
-    void InitializeCurrentAttributes() const;
 
+    /* Adds startup gameplay abilities. */
     void AddCharacterAbilities();
 
 private:
 
+    /* Abilities to be added at start of play. */
     UPROPERTY(EditAnywhere, Category = "GAS | Abilities")
     TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 

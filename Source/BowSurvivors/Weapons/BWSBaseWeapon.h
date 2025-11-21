@@ -24,9 +24,16 @@ public:
     // Sets default values for this actor's properties
     ABWSBaseWeapon();
 
+    /* Returns Weapons Ability System Component */
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
+
+    /* Returns Weapons Attribute Set */
     UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
+    /* 
+        Gets location in world of where the weapon is supposed to be located.
+        if argument passed - will find specified socket with name that is passed 
+    */
     virtual FVector GetWeaponSocketLocation(FName SocketName = "") override;
 
     // Called every frame
@@ -41,6 +48,7 @@ public:
     */
     virtual void Attack();
 
+    /* Get Current weapon level */
     virtual int32 GetCurrentLevel() override { return WeaponLevel; }
 
     /* Retuns Weapon Static mesh (might be skeletal in the future) */
@@ -60,27 +68,36 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Components")
     USkeletalMeshComponent* SkeletalMeshComponent;
 
+    /* Effect that initializes core weapon stats: Damage, FireRate, Range, NumOfArrows, Speed, Size. */
     UPROPERTY(EditDefaultsOnly, Category = "Attributes")
     TSubclassOf<UGameplayEffect> DefaultCoreWeaponAttributesInitializerEffect;
 
+    /* Effect that initializes Derived weapon stats: DPS, Utility Score. */
     UPROPERTY(EditDefaultsOnly, Category = "Attributes")
     TSubclassOf<UGameplayEffect> DefaultDerivedWeaponAttributesInitializerEffect;
 
+    /* Effect that initializes general weapon score. */
     UPROPERTY(EditDefaultsOnly, Category = "Attributes")
     TSubclassOf<UGameplayEffect> DefaultWeaponScoreAttributesInitializerEffect;
 
 private:
+    /* Initializes components */
     void InitializeComponents();
 
+    /* Initializes Ability Actor Info */
     void InitializeAbilityActorInfo();
 
+    /* Initializes Default Attributes */
     void InitializeDefaultAttributes();
 
+    /* Generates attributes for weapon. In the future will be used when rerolling stats. */
     void GenerateAttributes();
 
+    /* Applied passed as argument effect to self*/
     UFUNCTION(BlueprintCallable)
     void ApplyEffectToSelf(TSubclassOf<UGameplayEffect> GameplayEffectClass, float Level);
 
+    /* Weapons Current level. */
     UPROPERTY(VisibleAnywhere)
     int32 WeaponLevel;
 

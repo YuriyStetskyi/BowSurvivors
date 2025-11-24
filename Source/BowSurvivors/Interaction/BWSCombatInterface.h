@@ -14,7 +14,7 @@ class UBWSCombatInterface : public UInterface
 };
 
 /**
- * 
+ *  Interface that stores all functions connected to games combat.
  */
 class BOWSURVIVORS_API IBWSCombatInterface
 {
@@ -23,7 +23,9 @@ class BOWSURVIVORS_API IBWSCombatInterface
 	// Add interface functions to this class. This is the class that will be inherited to implement this interface. 
 public:
 
+    /* Returns current level of object implementing this interface. */
     virtual int32 GetCurrentLevel();
 
+    /* Returns Weapon socket location of weapon owned by object implementing this interface. */
     virtual FVector GetWeaponSocketLocation(FName SocketName = "");
 };

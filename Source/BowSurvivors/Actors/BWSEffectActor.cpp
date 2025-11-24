@@ -47,7 +47,6 @@ void ABWSEffectActor::ApplyEffectToTarget(AActor* const TargetActor, TSubclassOf
     {
         ActiveEffectHandles.Add(ActiveEffectHandle, TargetASC);
     }
-
 }
 
 void ABWSEffectActor::OnOverlap(AActor* const TargetActor)
@@ -66,7 +65,6 @@ void ABWSEffectActor::OnOverlap(AActor* const TargetActor)
     {
         ApplyEffectToTarget(TargetActor, InfiniteGameplayEffectClass);
     }
-
 }
 
 void ABWSEffectActor::OnEndOverlap(AActor* const TargetActor)

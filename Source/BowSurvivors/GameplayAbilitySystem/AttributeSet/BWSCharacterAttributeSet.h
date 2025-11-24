@@ -17,7 +17,10 @@ class BOWSURVIVORS_API UBWSCharacterAttributeSet : public UBWSAttributeSet
 public:
     UBWSCharacterAttributeSet(const FObjectInitializer& ObjectInitializer);
 
+    /* Called before attribute is changed. */
     virtual void PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue) override;
+    
+    /* Called after gameplay effect is executed. */
     virtual void PostGameplayEffectExecute(const FGameplayEffectModCallbackData& Data) override;
 
     /**

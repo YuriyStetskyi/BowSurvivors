@@ -25,7 +25,7 @@ struct FUIWidgetRow : public FTableRowBase
     TSubclassOf<UBWSUserWidget> MessageWidget;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    UTexture2D* Image;
+    UTexture2D* Image = nullptr;
 
 };
 

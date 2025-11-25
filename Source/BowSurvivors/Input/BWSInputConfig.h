@@ -36,5 +36,5 @@ public:
     TArray<FBWSInputAction> AbilityInputActions;
 
     /* Retrieves Ability Action depending on tag provided. */
-    const UInputAction* FindAbilityInputActionForGag(const FGameplayTag& InputTag, bool bLogNotFound = false) const;
+    const UInputAction* FindAbilityInputActionForTag(const FGameplayTag& InputTag, bool bLogNotFound = false) const;
 };

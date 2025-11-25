@@ -3,7 +3,7 @@
 
 #include "Input/BWSInputConfig.h"
 
-const UInputAction* UBWSInputConfig::FindAbilityInputActionForGag(const FGameplayTag& InputTag, bool bLogNotFound) const
+const UInputAction* UBWSInputConfig::FindAbilityInputActionForTag(const FGameplayTag& InputTag, bool bLogNotFound) const
 {
     for (const FBWSInputAction& Action : AbilityInputActions)
     {

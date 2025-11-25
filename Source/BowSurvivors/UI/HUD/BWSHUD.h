@@ -34,6 +34,7 @@ public:
     /* Method that either creates or returns created Overlay Widget Controller. */
     UBWSOverlayWidgetController* GetOverlayWidgetController(const FWidgetControllerParams& WCParams);
 
+    /* Method that either creates or returns created Weapon Widget Controller. */
     UBWSWeaponWidgetController* GetWeaponWidgetController(const FWidgetControllerParams& WCParams, EWeaponSlot WeaponSlot);
 
 
@@ -52,12 +53,15 @@ private:
     UPROPERTY(EditAnywhere)
     TSubclassOf<UBWSOverlayWidgetController> OverlayWidgetControllerClass;
 
+    /* Widget Controller for first weapon. */
     UPROPERTY()
     UBWSWeaponWidgetController* FirstWeaponWidgetController;
 
+    /* Widget Controller for second weapon. */
     UPROPERTY()
     UBWSWeaponWidgetController* SecondWeaponWidgetController;
 
+    /* Type of weapon Widget Controller to be created. */
     UPROPERTY(EditAnywhere)
     TSubclassOf<UBWSWeaponWidgetController> WeaponWidgetControllerClass;
 };

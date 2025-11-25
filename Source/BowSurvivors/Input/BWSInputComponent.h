@@ -8,7 +8,7 @@
 #include "BWSInputComponent.generated.h"
 
 /**
- * 
+ *  Custom input component
  */
 UCLASS()
 class BOWSURVIVORS_API UBWSInputComponent : public UEnhancedInputComponent
@@ -16,6 +16,7 @@ class BOWSURVIVORS_API UBWSInputComponent : public UEnhancedInputComponent
 	GENERATED_BODY()
 	
 public:
+    /* Custom method that binds all the input configs to different On Pressed/Released/Held key events. Remember - this class inherits UEnhancedInputComponent so it has InputAction. */
     template<class UserClass, typename PressedFuncType, typename ReleasedFuncType, typename HeldFuncType>
     void BindAbilityActions(const UBWSInputConfig* InputConfig, UserClass* Object, PressedFuncType PressedFunc, ReleasedFuncType ReleasedFunc, HeldFuncType HeldFunc);
 

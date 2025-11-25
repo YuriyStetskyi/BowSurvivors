@@ -9,6 +9,7 @@
 
 class UInputAction;
 
+/* Input action struct. Links Input Action to Gameplay Tag. */
 USTRUCT(BlueprintType)
 struct FBWSInputAction
 {
@@ -22,7 +23,7 @@ struct FBWSInputAction
 };
 
 /**
- * 
+ *  Stores all config related to input actions. Currently stores pairs of InputAction + Gameplay Tag and allows to Retrieve InputAction by Tag.
  */
 UCLASS()
 class BOWSURVIVORS_API UBWSInputConfig : public UDataAsset
@@ -30,8 +31,10 @@ class BOWSURVIVORS_API UBWSInputConfig : public UDataAsset
 	GENERATED_BODY()
 
 public:
+    /* Pair of InputAction + Gameplay Tag. */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     TArray<FBWSInputAction> AbilityInputActions;
 
+    /* Retrieves Ability Action depending on tag provided. */
     const UInputAction* FindAbilityInputActionForGag(const FGameplayTag& InputTag, bool bLogNotFound = false) const;
 };

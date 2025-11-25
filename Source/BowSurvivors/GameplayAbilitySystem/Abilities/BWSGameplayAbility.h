@@ -8,7 +8,7 @@
 #include "BWSGameplayAbility.generated.h"
 
 /**
- * 
+ *  Custom gameplay ability for this project.
  */
 UCLASS()
 class BOWSURVIVORS_API UBWSGameplayAbility : public UGameplayAbility
@@ -17,7 +17,7 @@ class BOWSURVIVORS_API UBWSGameplayAbility : public UGameplayAbility
 	
 public:
 
-
+    /* Startup gameplay tag for ability. */
     UPROPERTY(EditDefaultsOnly, Category = "Input")
     FGameplayTag StartupGameplayTag;
 };

@@ -12,8 +12,10 @@
 struct FBWSGameplayTags
 {
 public:
+    /* Singleton Getter, Returns single instance of this class. */
     static const FBWSGameplayTags& Get() { return GameplayTags; }
 
+    /* Runs early and initializes gameplay tags. */
     static void InitializeNativeGameplayTags();
 
     /*
@@ -62,6 +64,7 @@ public:
 protected:
 
 private:
+    /* Singleton instance. */
     static FBWSGameplayTags GameplayTags;
 
 

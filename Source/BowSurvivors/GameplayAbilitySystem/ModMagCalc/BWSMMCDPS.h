@@ -7,7 +7,7 @@
 #include "BWSMMCDPS.generated.h"
 
 /**
- * 
+ *  Magnitude Modifier Calculation for Damage per second
  */
 UCLASS()
 class BOWSURVIVORS_API UBWSMMCDPS : public UGameplayModMagnitudeCalculation
@@ -17,12 +17,18 @@ class BOWSURVIVORS_API UBWSMMCDPS : public UGameplayModMagnitudeCalculation
 public:
     UBWSMMCDPS(const FObjectInitializer& ObjectInitializer);
 
+    /* Main method that returns result of MMC. */
     virtual float CalculateBaseMagnitude_Implementation(const FGameplayEffectSpec& Spec) const override;
 
 private:
 
-    FGameplayEffectAttributeCaptureDefinition DamageDef; //Def - definition
+    /* Damage Definition */
+    FGameplayEffectAttributeCaptureDefinition DamageDef;
+ 
+    /* FireRate Definition */
     FGameplayEffectAttributeCaptureDefinition FireRateDef;
+    
+    /* Projectiles Count Definition */
     FGameplayEffectAttributeCaptureDefinition ProjectilesCountDef;
 
 };

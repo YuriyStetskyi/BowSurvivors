@@ -25,6 +25,7 @@ public:
     virtual UAbilitySystemComponent* GetAbilitySystemComponent() const;
     UAttributeSet* GetAttributeSet() const { return AttributeSet; }
 
+    /* Returns current level of character/player state associated with character. */
     virtual int32 GetCurrentLevel() override { return PlayerLevel; }
 
 protected:
@@ -40,6 +41,7 @@ private:
     /* Method that initializes all of the actors components */
     void InitializeComponents();
 
+    /* Current Player Level. */
     UPROPERTY(VisibleAnywhere)
     int32 PlayerLevel;
 };

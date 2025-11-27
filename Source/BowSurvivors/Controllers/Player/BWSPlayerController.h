@@ -34,8 +34,10 @@ public:
     /* Runs every frame */
     virtual void Tick(float DeltaTime) override;
 
+    /* Delegate that is broadcasted when */
     FOnWeaponStatsShow OnWeaponStatsShow;
  
+    /* Returns ECollisionChannel that Cursor is supposed to be collided with when deicding where to shoot projectile. */
     UFUNCTION(BlueprintCallable)
     ECollisionChannel GetCursorProjectionChannel() { return CursorProjectionChannel; }
 
@@ -81,15 +83,10 @@ private:
     /* Set up all the cursor settings to work properly in game */
     void SetupCursor();
 
+    /* Show Weapon Stats. */
     void ShowWeaponStats();
 
 #pragma region Mouse
-
-    /*
-        Finds location projected from cursor onto world terrain.
-        Argument passed is collision channel that should stop projection ray
-    */
-    FVector FindProjectedMouseLocation(ECollisionChannel ProjectionCollisionChannel);
 
     /* Rotates character to look at passed world location. Ignores vertical (Z) axis */
     void LookAtLocation(const FVector& LocationToLookAt);
@@ -99,15 +96,26 @@ private:
 
 #pragma endregion 
 
+    /* Runs when input of ability corresponding to a tag is pressed */
     void AbilityInputTagPressed(FGameplayTag InputTag);
+
+    /* Runs when input of ability corresponding to a tag is released */
     void AbilityInputTagReleased(FGameplayTag InputTag);
+
+    /* Runs when input of ability corresponding to a tag is held */
     void AbilityInputTagHeld(FGameplayTag InputTag);
 
+    /* Should be called in Tick. Updates current mouse location in world. */
+    void UpdateCurrrentMouseLocation();
+
+    /* Input configuration. Has pairs of InputAction + Tag. */
     UPROPERTY(EditAnywhere, Category = "Input")
     UBWSInputConfig* InputConfig;
 
+    /* Cached ASC reference for convenience purposes. */
     UPROPERTY()
     UBWSAbilitySystemComponent* BWSAbilitySystemComponent;
 
+    /* Returns Ability System Component reference of controlled character. */
     UBWSAbilitySystemComponent* const GetASC();
 };

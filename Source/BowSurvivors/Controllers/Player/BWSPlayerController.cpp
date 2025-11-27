@@ -31,10 +31,7 @@ void ABWSPlayerController::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    FHitResult Hit;
-    GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(CursorProjectionChannel), true, Hit);
-    CurrentMouseLocation = Hit.Location;
-    //CurrentMouseLocation = FindProjectedMouseLocation(CursorProjectionChannel);
+    UpdateCurrrentMouseLocation();
     LookAtLocation(CurrentMouseLocation);
 }
 
@@ -91,29 +88,6 @@ void ABWSPlayerController::ShowWeaponStats()
     OnWeaponStatsShow.Broadcast();
 }
 
-FVector ABWSPlayerController::FindProjectedMouseLocation(ECollisionChannel ProjectionCollisionChannel)
-{
-    float X = 0;
-    float Y = 0;
-
-    if (!GetMousePosition(X, Y)) return FVector::ZeroVector;
-
-    FVector WorldMouseLocation(FVector::ZeroVector);
-    FVector WorldMouseDirection(FVector::ZeroVector);
-
-    DeprojectScreenPositionToWorld(X, Y, WorldMouseLocation, WorldMouseDirection);
-
-    FVector Start = WorldMouseLocation;
-    FVector End = Start + (WorldMouseDirection * PROJECTION_RAY_LENGTH);
-
-    FHitResult HitResult;
-    GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ProjectionCollisionChannel);
-
-    if (!HitResult.bBlockingHit) return FVector::ZeroVector;
-
-    return HitResult.ImpactPoint;
-}
-
 void ABWSPlayerController::LookAtLocation(const FVector& LocationToLookAt)
 {
     APawn* const ControlledPawn = GetPawn();
@@ -144,6 +118,13 @@ void ABWSPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
 {
     if (!GetASC()) return;
     GetASC()->AbilityInputTagHeld(InputTag);
+}
+
+void ABWSPlayerController::UpdateCurrrentMouseLocation()
+{
+    FHitResult Hit;
+    GetHitResultUnderCursorByChannel(UEngineTypes::ConvertToTraceType(CursorProjectionChannel), true, Hit);
+    CurrentMouseLocation = Hit.Location;
 }
 
 UBWSAbilitySystemComponent* const ABWSPlayerController::GetASC()

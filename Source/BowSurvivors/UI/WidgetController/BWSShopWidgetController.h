@@ -7,7 +7,7 @@
 #include "BWSShopWidgetController.generated.h"
 
 /**
- * 
+ *  Widget Controller for the Shop Widget.
  */
 UCLASS()
 class BOWSURVIVORS_API UBWSShopWidgetController : public UBWSWidgetController

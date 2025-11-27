@@ -28,7 +28,10 @@ class BOWSURVIVORS_API ABWSPlayerController : public APlayerController
 public:
     ABWSPlayerController(const FObjectInitializer& ObjectInitializer);
 
+    /* Runs at game start */
     virtual void BeginPlay() override;
+
+    /* Runs every frame */
     virtual void Tick(float DeltaTime) override;
 
     FOnWeaponStatsShow OnWeaponStatsShow;

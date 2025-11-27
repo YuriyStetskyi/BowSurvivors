@@ -41,63 +41,6 @@ void ABWSPlayerCharacter::Move(const FInputActionValue& InputActionValue)
     AddMovementInput(FVector::RightVector, MovementVector.X);
 }
 
-/* PURE DEBUG FUNCTION SHOULD BE REMOVED LATER*/
-void ABWSPlayerCharacter::Test_TakeDamage(float Damage)
-{
-    ABWSPlayerState* const PS = Cast<ABWSPlayerState>(GetPlayerState());
-    if (!PS) return;
-
-    float CurrentHP = UBWSCharacterAttributeSet::GetHealthAttribute().GetNumericValue(PS->GetAttributeSet());
-
-    PS->GetAbilitySystemComponent()->SetNumericAttributeBase(UBWSCharacterAttributeSet::GetHealthAttribute(), CurrentHP - Damage);
-}
-
-void ABWSPlayerCharacter::Test_AddGold(float MoneyToAdd)
-{
-    ABWSPlayerState* const PS = Cast<ABWSPlayerState>(GetPlayerState());
-    if (!PS) return;
-
-    float CurrentMoney = UBWSCharacterAttributeSet::GetMoneyAttribute().GetNumericValue(PS->GetAttributeSet());
-
-    PS->GetAbilitySystemComponent()->SetNumericAttributeBase(UBWSCharacterAttributeSet::GetMoneyAttribute(), CurrentMoney + MoneyToAdd);
-}
-
-void ABWSPlayerCharacter::Test_DisplayWeaponStats()
-{
-    ABWSBaseWeapon* const Weapon = WeaponComponent->GetCurrentWeapon();
-    if (!Weapon) return;
-
-    float Damage = UBWSWeaponAttributeSet::GetDamageAttribute().GetNumericValue(Weapon->GetAttributeSet());
-    GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Green, FString::Printf(TEXT("Damage: %.2f"), Damage));
-
-    float FireRate = UBWSWeaponAttributeSet::GetFireRateAttribute().GetNumericValue(Weapon->GetAttributeSet());
-    GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Green, FString::Printf(TEXT("FireRate: %.2f"), FireRate));
-
-    float ProjectilesCount = UBWSWeaponAttributeSet::GetProjectilesCountAttribute().GetNumericValue(Weapon->GetAttributeSet());
-    GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Green, FString::Printf(TEXT("Projectiles Count: %.2f"), ProjectilesCount));
-
-    float Range = UBWSWeaponAttributeSet::GetRangeAttribute().GetNumericValue(Weapon->GetAttributeSet());
-    GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Emerald, FString::Printf(TEXT("Range: %.2f"), Range));
-
-    float Speed = UBWSWeaponAttributeSet::GetSpeedAttribute().GetNumericValue(Weapon->GetAttributeSet());
-    GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Emerald, FString::Printf(TEXT("Speed: %.2f"), Speed));
-
-    float Size = UBWSWeaponAttributeSet::GetSizeAttribute().GetNumericValue(Weapon->GetAttributeSet());
-    GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Emerald, FString::Printf(TEXT("Size: %.2f"), Size));
-
-
-    float DPS = UBWSWeaponAttributeSet::GetDPSAttribute().GetNumericValue(Weapon->GetAttributeSet());
-    GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, FString::Printf(TEXT("DPS: %.2f"), DPS));
-
-    float UtilityScore = UBWSWeaponAttributeSet::GetUtilityScoreAttribute().GetNumericValue(Weapon->GetAttributeSet());
-    GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Yellow, FString::Printf(TEXT("Utility Score: %.2f"), UtilityScore));
-
-
-    float WeaponScore = UBWSWeaponAttributeSet::GetWeaponScoreAttribute().GetNumericValue(Weapon->GetAttributeSet());
-    GEngine->AddOnScreenDebugMessage(-1, 10.0f, FColor::Orange, FString::Printf(TEXT("Weapon Score: %.2f"), WeaponScore));
-
-}
-
 int32 ABWSPlayerCharacter::GetCurrentLevel()
 {
     ABWSPlayerState* const BWSPlayerState = GetPlayerState<ABWSPlayerState>();
@@ -115,18 +58,21 @@ void ABWSPlayerCharacter::PossessedBy(AController* NewController)
 {
     Super::PossessedBy(NewController);
 
+    ABWSPlayerState* const BWSPlayerState = GetPlayerState<ABWSPlayerState>();
+    if (!BWSPlayerState) return;
+
     InitializeAbilityActorInfo();
+
+    AbilitySystemComponent = BWSPlayerState->GetAbilitySystemComponent();
+    AttributeSet = BWSPlayerState->GetAttributeSet();
+
+    InitializeOverlay(BWSPlayerState);
+    InitializeDefaultAttributes();
     AddCharacterAbilities();
 }
 
 void ABWSPlayerCharacter::InitializeComponents()
 {
-    /*
-        Thing to remember:
-        Default Root - CapsuleComponent (default component)
-        SkeletalMesh - you can get via GetMesh(). Is attached to Root by default.
-    */
-
     SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComponent"));
     SpringArmComponent->SetupAttachment(GetRootComponent());
 
@@ -134,6 +80,17 @@ void ABWSPlayerCharacter::InitializeComponents()
     CameraComponent->SetupAttachment(SpringArmComponent);
 
     WeaponComponent = CreateDefaultSubobject<UBWSWeaponComponent>(TEXT("WeaponComponent"));
+}
+
+void ABWSPlayerCharacter::InitializeOverlay(ABWSPlayerState* const BWSPlayerState)
+{
+    ABWSPlayerController* const BWSPlayerController = Cast<ABWSPlayerController>(GetController());
+    if (!BWSPlayerController) return;
+
+    ABWSHUD* const HUD = Cast<ABWSHUD>(BWSPlayerController->GetHUD());
+    if (!HUD) return;
+
+    HUD->InitOverlay(BWSPlayerController, BWSPlayerState, AbilitySystemComponent, AttributeSet);
 }
 
 void ABWSPlayerCharacter::InitializeAbilityActorInfo()
@@ -149,17 +106,4 @@ void ABWSPlayerCharacter::InitializeAbilityActorInfo()
 
     GenericASC->InitAbilityActorInfo(BWSPlayerState, this);
     BWSASC->AbilityActorInfoSet();
-
-    AbilitySystemComponent = BWSPlayerState->GetAbilitySystemComponent();
-    AttributeSet = BWSPlayerState->GetAttributeSet();
-
-    ABWSPlayerController* const BWSPlayerController = Cast<ABWSPlayerController>(GetController());
-    if (!BWSPlayerController) return;
-
-    ABWSHUD* const HUD = Cast<ABWSHUD>(BWSPlayerController->GetHUD());
-    if (!HUD) return;
-
-    HUD->InitOverlay(BWSPlayerController, BWSPlayerState, AbilitySystemComponent, AttributeSet);
-
-    InitializeDefaultAttributes();
 }

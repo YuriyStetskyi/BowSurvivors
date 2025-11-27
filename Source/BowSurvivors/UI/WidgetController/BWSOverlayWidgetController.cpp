@@ -20,6 +20,8 @@ void UBWSOverlayWidgetController::BroadcastInitialValues()
 
 void UBWSOverlayWidgetController::BindCallbacksToDependencies()
 {
+    /* Attributes */
+
     UBWSCharacterAttributeSet* const BWSCharacterAttributeSet = Cast<UBWSCharacterAttributeSet>(AttributeSet);
     if (!BWSCharacterAttributeSet) return;
    
@@ -41,6 +43,8 @@ void UBWSOverlayWidgetController::BindCallbacksToDependencies()
                 OnMoneyChanged.Broadcast(Data.NewValue);
             });
     
+    /* Message widget popup */
+
     UBWSAbilitySystemComponent* const ASC = Cast<UBWSAbilitySystemComponent>(AbilitySystemComponent);
     if (!ASC) return;
 
@@ -56,6 +60,8 @@ void UBWSOverlayWidgetController::BindCallbacksToDependencies()
                 MessageWidgetRowDelegate.Broadcast(*Row);
             }
         });
+
+    /* Weapon Stats */
 
     ABWSPlayerController* const BWSPlayerController = Cast<ABWSPlayerController>(PlayerController);
     if (!BWSPlayerController) return;

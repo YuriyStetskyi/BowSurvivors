@@ -12,6 +12,7 @@ struct FInputActionValue;
 class UCameraComponent;
 class USpringArmComponent;
 class UBWSWeaponComponent;
+class ABWSPlayerState;
 
 /**
  *  Player Character class. Stores player specific data and logic.
@@ -24,6 +25,7 @@ class BOWSURVIVORS_API ABWSPlayerCharacter : public ABWSBaseCharacter, public IB
 public:
     ABWSPlayerCharacter(const FObjectInitializer& ObjectInitializer);
 
+    /* Returns location of socket that weapon is supposed to be attached to. */
     virtual FVector GetWeaponSocketLocation(FName SocketName = "") override;
 
     /* Move action */
@@ -34,23 +36,15 @@ public:
     FORCEINLINE UCameraComponent* const GetCameraComponent() { return CameraComponent; }
     FORCEINLINE UBWSWeaponComponent* const GetWeaponComponent() { return WeaponComponent; }
 
-    /* PURE DEBUG FUNCTION SHOULD BE REMOVED LATER*/
-    UFUNCTION(BlueprintCallable)
-    void Test_TakeDamage(float Damage);
-
-    /* PURE DEBUG FUNCTION SHOULD BE REMOVED LATER*/
-    UFUNCTION(BlueprintCallable)
-    void Test_AddGold(float MoneyToAdd);
-
-    UFUNCTION(BlueprintCallable)
-    void Test_DisplayWeaponStats();
-
+    /* Returns current character level. */
     int32 GetCurrentLevel();
 
+    /* Name of socket at which location projectile should spawn and start moving from. */
     UPROPERTY(EditDefaultsOnly, Category = "Sockets")
     FName ProjectileStartSocketName;
 
 protected:
+    /* Called at game start. */
     virtual void BeginPlay() override;
 
     /* Called when Character is possessed by a Controller */
@@ -75,5 +69,6 @@ private:
     /* Initializes main components of character (on compile) */
     void InitializeComponents();
 
-
+    /* Initializes Overlay from HUD class. */
+    void InitializeOverlay(ABWSPlayerState* const BWSPlayerState);
 };

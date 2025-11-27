@@ -10,6 +10,7 @@
 class UBWSUserWidget;
 struct FOnAttributeChangeData;
 
+/* Struct that contains data for floating popup message widget. */
 USTRUCT(BlueprintType)
 struct FUIWidgetRow : public FTableRowBase
 {
@@ -62,17 +63,21 @@ public:
     UPROPERTY(BlueprintAssignable, Category = "GAS | Attributes")
     FOnAttributeChangedSignature OnMoneyChanged;
 
+    /* Broadcasted when popup message widget is created. */
     UPROPERTY(BlueprintAssignable, Category = "GAS | Messages")
     FMessageWidgetRowSignature MessageWidgetRowDelegate;
 
+    /* Broadcasted when weapon stats animation is supposed to be played. */
     UPROPERTY(BlueprintAssignable, Category = "UI | Animations")
     FOnOverlayAnimationPlayed WeaponStatsAnimationPlayed;
 
 
 protected:
+    /* Data table with message widgets (popups) and required data to create them. */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Widget Data")
     UDataTable* MessageWidgetDataTable;
 
+    /* Returns Row of datatable that has matching tag column. */
     template <typename T>
     T* GetDataTableRowByTag(UDataTable* DataTable, const FGameplayTag& Tag);
 

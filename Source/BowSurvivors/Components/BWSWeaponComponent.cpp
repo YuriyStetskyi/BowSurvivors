@@ -13,7 +13,6 @@ UBWSWeaponComponent::UBWSWeaponComponent()
     , WeaponSocketName("WeaponSocket")
 {
     PrimaryComponentTick.bCanEverTick = true;
-
 }
 
 // Called when the game starts

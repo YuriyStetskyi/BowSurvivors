@@ -13,7 +13,7 @@ struct FWeaponAttributeInfo;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnWeaponAttributeChangedSignature, const FWeaponAttributeInfo& , Info);
 
 /**
- * 
+ *  Widget Controller  for a Weapon (each weapon has its own).
  */
 UCLASS(BlueprintType, Blueprintable)
 class BOWSURVIVORS_API UBWSWeaponWidgetController : public UBWSWidgetController
@@ -22,9 +22,11 @@ class BOWSURVIVORS_API UBWSWeaponWidgetController : public UBWSWidgetController
 	
 public:
 
+    /* Delegate that is broadcasted when weapons attribute is changed. */
     UPROPERTY(BlueprintAssignable)
     FOnWeaponAttributeChangedSignature OnWeaponAttributeChanged;
 
+    /* Broadcasts initial values for weapons attributes. */
     virtual void BroadcastInitialValues() override;
 
     /*
@@ -34,7 +36,8 @@ public:
     virtual void BindCallbacksToDependencies() override;
 
 protected:
-
+    
+    /* Stores all information about attributes (Tag, Name, Description etc.) */
     UPROPERTY(EditDefaultsOnly, Category = "Attribute Info")
     UBWSWeaponAttributeInfo* WeaponAttributeInfo;
 

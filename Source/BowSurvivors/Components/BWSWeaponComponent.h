@@ -8,6 +8,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnWeaponsSpawnedSignature);
 
+/* Slot that weapon can be equipped in. */
 UENUM(BlueprintType)
 enum class EWeaponSlot : uint8
 {
@@ -51,9 +52,11 @@ public:
     /* Unequips specified weapon */
     void HolsterWeapon(ABWSBaseWeapon* const Weapon);
 
+    /* Returns Weapon from a specified slot. */
     UFUNCTION(BlueprintCallable)
     ABWSBaseWeapon* const GetWeapon(EWeaponSlot Slot);
 
+    /* Delegate that is broadcasted after weapons are spawned. */
     UPROPERTY(BlueprintAssignable)
     FOnWeaponsSpawnedSignature OnWeaponsSpawned;
 
@@ -86,7 +89,6 @@ private:
     ABWSBaseWeapon* SecondWeapon;
 
     /*
-        
         Name of socket to which weapon will be attached.
         Socket must exist on skeletal mesh of Character
     */

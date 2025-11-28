@@ -7,6 +7,7 @@
 #include "GameplayTagContainer.h"
 #include "BWSWeaponAttributeInfo.generated.h"
 
+/* Struct containing information about Weapon Attribute. */
 USTRUCT(BlueprintType)
 struct FWeaponAttributeInfo
 {
@@ -29,7 +30,7 @@ struct FWeaponAttributeInfo
 };
 
 /**
- * 
+ *  Attribute information (tag, name, description, value - hidden).
  */
 UCLASS()
 class BOWSURVIVORS_API UBWSWeaponAttributeInfo : public UDataAsset
@@ -38,8 +39,10 @@ class BOWSURVIVORS_API UBWSWeaponAttributeInfo : public UDataAsset
 	
 public:
 
+    /* Finds attribute information from array via tag. */
     FWeaponAttributeInfo FindAttributeInfoForTag(const FGameplayTag& AttributeTag, bool bLogNotFound = false) const;
 
+    /* Array of attribute information. Can be parsed to find specific info about attribute via tag. */
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
     TArray<FWeaponAttributeInfo> AttributeInformation;
 

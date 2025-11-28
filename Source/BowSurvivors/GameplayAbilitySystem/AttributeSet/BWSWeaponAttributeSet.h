@@ -77,7 +77,7 @@ public:
     FGameplayAttributeData WeaponScore;
     ATTRIBUTE_ACCESSORS(UBWSWeaponAttributeSet, WeaponScore);
 
-
+    /* Array linking tags to attributes. */
     TMap<FGameplayTag, TStaticFuncPtr<FGameplayAttribute()>> TagsToAttributes;
 
 };
